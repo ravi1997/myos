@@ -2,3 +2,5 @@ reading\ stuff
 iso/
 .git/
 Object\ code/
+.gitignore
+*.iso
