@@ -1,8 +1,7 @@
 #ignore All file
+iso
+Object
 reading\ stuff
-iso/
-.git/
-Object/
 .gitignore
 *.iso
 *.bat
