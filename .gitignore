@@ -1,6 +1,7 @@
 reading\ stuff
 iso/
 .git/
-Object\ code/
+Object/
 .gitignore
 *.iso
+*.bat
