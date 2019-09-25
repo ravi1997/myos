@@ -3,6 +3,7 @@ ASPARAMS = --32
 
 OBJECTS = Object/kernel/loader.o \
 					Object/kernel/system/iqr.o \
+					Object/kernel/system/gdt.o \
 					Object/kernel/kernel.o
 
 Object/%.o:source/%.cpp

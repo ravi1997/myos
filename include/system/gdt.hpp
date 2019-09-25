@@ -303,20 +303,18 @@ public:
   const static uint_32 KERNELCODESEGMENTOFFSET=1;
   const static uint_32 KERNELDATASEGMENTOFFSET=2;
 
-  static uint16_t GlobalDescriptorTable::DataSegmentSelector()
+  static uint_16 DataSegmentSelector()
   {
-      return (uint8_t*)&GlobalDescriptorTable::gdt[GlobalDescriptorTable::KERNELDATASEGMENTOFFSET] - (uint8_t*)GlobalDescriptorTable::gdt;
+      return (uint_8*)&GlobalDescriptorTableManager::gdt[GlobalDescriptorTableManager::KERNELDATASEGMENTOFFSET] - (uint_8*)GlobalDescriptorTableManager::gdt;
   }
 
-  static uint16_t GlobalDescriptorTable::CodeSegmentSelector()
+  static uint_16 CodeSegmentSelector()
   {
-    return (uint8_t*)&GlobalDescriptorTable::gdt[GlobalDescriptorTable::KERNELCODESEGMENTOFFSET] - (uint8_t*)GlobalDescriptorTable::gdt;
+    return (uint_8*)&GlobalDescriptorTableManager::gdt[GlobalDescriptorTableManager::KERNELCODESEGMENTOFFSET] - (uint_8*)GlobalDescriptorTableManager::gdt;
   }
 
 };
 
-GlobalDescriptorTableManager::GlobalDescriptor GlobalDescriptorTableManager::gdt[MAXGDT];
-uint_32 GlobalDescriptorTableManager::GDT_Entries=0;
 
 
 #endif
