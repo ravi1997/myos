@@ -38,7 +38,7 @@ extern "C" void callConstructors(){
     (*i)();
 }
 
-extern "C" void kernelMain(void *multiboot_structure,uint_32 magicnumber){
+extern "C" void kernelMain([[maybe_unused]]void *multiboot_structure,[[maybe_unused]]uint_32 magicnumber){
   Service::initialize();
   Service::run();
   while(1)
