@@ -1,8 +1,16 @@
 #ifndef _IQR_HPP_
 #include<system//iqr.hpp>
 #endif
-uint_32 InterruptServiceRoutine::HandleInterrupt([[maybe_unused]]uint_8 interruptNumber,uint_32 esp){
-  return esp;
+
+uint_32 InterruptServiceRoutine::HandleInterrupt(uint_8 interruptNumber,uint_32 esp){
+    return (interruptEnable)?DoHandleInterrupt(interruptNumber,esp):esp;
 }
 
-void InterruptServiceRoutine::HandleInterruptRequest0x01(){}
+
+InterruptServiceRoutine::InterruptHandler* InterruptServiceRoutine::handlers[256];
+bool InterruptServiceRoutine::interruptEnable=false;
+InterruptServiceRoutine::GateDescriptor InterruptServiceRoutine::interruptDescriptorTable[256];
+Port8BitSlow InterruptServiceRoutine::programmableInterruptControllerMasterCommandPort{0x20};
+Port8BitSlow InterruptServiceRoutine::programmableInterruptControllerMasterDataPort{0x21};
+Port8BitSlow InterruptServiceRoutine::programmableInterruptControllerSlaveCommandPort{0xA0};
+Port8BitSlow InterruptServiceRoutine::programmableInterruptControllerSlaveDataPort{0xA1};

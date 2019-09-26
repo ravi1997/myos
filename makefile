@@ -1,9 +1,11 @@
 GPPPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -fno-pie -ggdb -Wall -Wextra -Iinclude -O3 -std=c++17
-ASPARAMS = --32
+ASPARAMS =  --32
+LDPARAMS = -melf_i386
 
 OBJECTS = Object/kernel/loader.o \
-					Object/kernel/system/iqr.o \
 					Object/kernel/system/gdt.o \
+					Object/kernel/system/iqr.o \
+					Object/kernel/system/interruptstubs.o \
 					Object/kernel/kernel.o
 
 Object/%.o:source/%.cpp

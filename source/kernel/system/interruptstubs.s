@@ -3,21 +3,20 @@
 .set IRQ_BASE, 0x20
 
 .section .text
-
 .extern _ZN23InterruptServiceRoutine15HandleInterruptEhj
 
 
 .macro handleException num
-.global _ZN23InterruptServiceRoutine26handleException\num\()Ev
-_ZN23InterruptServiceRoutine26handleException\num\()Ev:
+.global _ZN23InterruptServiceRoutine19HandleException\num\()Ev
+_ZN23InterruptServiceRoutine19HandleException\num\()Ev:
     movb $\num, (interruptnumber)
     jmp int_bottom
 .endm
 
 
 .macro handleInterruptRequest num
-.global _ZN23InterruptServiceRoutine26handleInterruptRequest\num\()Ev
-_ZN23InterruptServiceRoutine26handleInterruptRequest\num\()Ev:
+.global _ZN23InterruptServiceRoutine26HandleInterruptRequest\num\()Ev
+_ZN23InterruptServiceRoutine26HandleInterruptRequest\num\()Ev:
     movb $\num + IRQ_BASE, (interruptnumber)
     pushl $0
     jmp int_bottom
@@ -114,8 +113,8 @@ int_bottom:
 
     add $4, %esp
 
-.global _ZN4myos21hardwarecommunication16InterruptManager15InterruptIgnoreEv
-_ZN4myos21hardwarecommunication16InterruptManager15InterruptIgnoreEv:
+.global _ZN23InterruptServiceRoutine15InterruptIgnoreEv
+_ZN23InterruptServiceRoutine15InterruptIgnoreEv:
 
     iret
 

@@ -42,7 +42,7 @@ public:
 };
 
 typedef Port<uint_8> Port_8Bit;
-typedef Port<uint_8,true> Port_8Bit_Slow;
+typedef Port<uint_8,true> Port8BitSlow;
 typedef Port<uint_16> Port_16Bit;
 typedef Port<uint_32> Port_32Bit;
 

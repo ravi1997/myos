@@ -1,10 +1,10 @@
-ENTRY(loader)
+ENTRY(_start)
 OUTPUT_ARCH(i386)
 SECTIONS
 {
   . = 0X0100000;
 
-  .text :
+  .text BLOCK(4K) : ALIGN(4K)
   {
     *(.multiboot)
     *(.text*)

@@ -2,10 +2,15 @@
 #define _IQR_HPP_ 1
 
 #include<lang//types.hpp>
+#include<system//hardware//Ports.hpp>
 
 #ifndef _GDT_HPP_
 #include<system//gdt.hpp>
 #endif
+
+void printf(char const* str );
+void printfHex(uint_8 key);
+
 
 class InterruptServiceRoutine{
 protected:
@@ -23,25 +28,26 @@ protected:
     uint_32 base;
   }__attribute__((packed));
 
-  static InterruptServiceRoutine* ActiveInterruptServiceRoutine;
 public:
   class InterruptHandler;
 protected:
   static InterruptHandler* handlers[256];
+  static Port8BitSlow programmableInterruptControllerMasterCommandPort;
+  static Port8BitSlow programmableInterruptControllerMasterDataPort;
+  static Port8BitSlow programmableInterruptControllerSlaveCommandPort;
+  static Port8BitSlow programmableInterruptControllerSlaveDataPort;
+
 public:
   class InterruptHandler{
   protected:
       uint_8 InterruptNumber;
-      InterruptServiceRoutine* interruptManager;
-      InterruptHandler(InterruptServiceRoutine* interruptManager, uint_8 InterruptNumber){
+      InterruptHandler(uint_8 InterruptNumber){
           this->InterruptNumber = InterruptNumber;
-          this->interruptManager = interruptManager;
-          interruptManager->handlers[InterruptNumber] = this;
+          InterruptServiceRoutine::handlers[InterruptNumber] = this;
       }
 
       ~InterruptHandler(){
-          if(interruptManager->handlers[InterruptNumber] == this)
-              interruptManager->handlers[InterruptNumber] = 0;
+              InterruptServiceRoutine::handlers[InterruptNumber] = nullptr;
       }
 
   public:
@@ -59,6 +65,7 @@ public:
   InterruptServiceRoutine& operator=(InterruptServiceRoutine&&)=delete;
   ~InterruptServiceRoutine()=delete;
 
+  static bool interruptEnable;
   static GateDescriptor interruptDescriptorTable[256];
   const static uint_16 hardwareInterruptOffset=0x20;
 
@@ -81,8 +88,38 @@ public:
                                    interruptDescriptorTable[interruptNumber].reserved = 0;
                                }
 
-  uint_32 DoHandleInterrupt(uint_8 interruptNumber,uint_32 esp);
   static uint_32 HandleInterrupt(uint_8 interruptNumber,uint_32 esp);
+
+
+  static uint_32 DoHandleInterrupt(uint_8 interruptNumber,uint_32 esp){
+      printf("UNHANDLED INTERRUPT 0x");
+      printfHex(interruptNumber);
+    if(InterruptServiceRoutine::handlers[interruptNumber] != 0)
+    {
+        esp = InterruptServiceRoutine::handlers[interruptNumber]->HandleInterrupt(esp);
+    }
+    else if(interruptNumber != InterruptServiceRoutine::hardwareInterruptOffset)
+    {
+        printf("UNHANDLED INTERRUPT 0x");
+        printfHex(interruptNumber);
+    }
+/*
+    if(interruptNumber == hardwareInterruptOffset)
+    {
+        esp = (uint32_t)taskManager->Schedule((CPUState*)esp);
+    }
+*/
+    // hardware interrupts must be acknowledged
+    if(InterruptServiceRoutine::hardwareInterruptOffset <= interruptNumber && interruptNumber < InterruptServiceRoutine::hardwareInterruptOffset+16)
+    {
+        InterruptServiceRoutine::programmableInterruptControllerMasterCommandPort.write(0x20);
+        if(InterruptServiceRoutine::hardwareInterruptOffset + 8 <= interruptNumber)
+            InterruptServiceRoutine::programmableInterruptControllerSlaveCommandPort.write(0x20);
+    }
+
+    return esp;
+}
+
 
   static void InterruptIgnore();
 
@@ -129,11 +166,33 @@ public:
 
 
   static void Activate(){
-
+      interruptEnable=true;
+      asm("sti");
   }
-  static void Deactivate();
+  static void Deactivate(){
+      interruptEnable=false;
+      asm("cli");
+  }
 
-  static void registerInterrupt(){
+  static void Initialize(){
+      InterruptServiceRoutine::programmableInterruptControllerMasterCommandPort.write(0x11);
+      InterruptServiceRoutine::programmableInterruptControllerSlaveCommandPort.write(0x11);
+
+      // remap
+      InterruptServiceRoutine::programmableInterruptControllerMasterDataPort.write(hardwareInterruptOffset);
+      InterruptServiceRoutine::programmableInterruptControllerSlaveDataPort.write(hardwareInterruptOffset+8);
+
+      InterruptServiceRoutine::programmableInterruptControllerMasterDataPort.write(0x04);
+      InterruptServiceRoutine::programmableInterruptControllerSlaveDataPort.write(0x02);
+
+      InterruptServiceRoutine::programmableInterruptControllerMasterDataPort.write(0x01);
+      InterruptServiceRoutine::programmableInterruptControllerSlaveDataPort.write(0x01);
+
+      InterruptServiceRoutine::programmableInterruptControllerMasterDataPort.write(0x00);
+      InterruptServiceRoutine::programmableInterruptControllerSlaveDataPort.write(0x00);
+
+
+
     uint_32 CodeSegment = GlobalDescriptorTableManager::CodeSegmentSelector();
 
     const uint_8 IDT_INTERRUPT_GATE = 0xE;
@@ -185,16 +244,17 @@ public:
 
     registerInterrupt(                          0x80, CodeSegment, &HandleInterruptRequest0x80, 0, IDT_INTERRUPT_GATE);
 
-  }
 
-  static void initialize(){
     InterruptDescriptorTablePointer idt_pointer;
     idt_pointer.size  = 256*sizeof(GateDescriptor) - 1;
     idt_pointer.base  = (uint_32)interruptDescriptorTable;
     asm volatile("lidt %0" : : "m" (idt_pointer));
   }
 
-  static uint_16 getHardwareInterruptOffset();
+
+  static uint_16 getHardwareInterruptOffset(){
+      return InterruptServiceRoutine::hardwareInterruptOffset;
+  }
 
 };
 
