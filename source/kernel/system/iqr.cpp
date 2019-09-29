@@ -3,6 +3,8 @@
 #endif
 
 uint_32 InterruptServiceRoutine::HandleInterrupt(uint_8 interruptNumber,uint_32 esp){
+    printf("UNHANDLED INTERRUPT 0x");
+    printfHex(interruptNumber);
     return (interruptEnable)?DoHandleInterrupt(interruptNumber,esp):esp;
 }
 

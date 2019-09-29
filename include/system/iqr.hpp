@@ -94,29 +94,6 @@ public:
   static uint_32 DoHandleInterrupt(uint_8 interruptNumber,uint_32 esp){
       printf("UNHANDLED INTERRUPT 0x");
       printfHex(interruptNumber);
-    if(InterruptServiceRoutine::handlers[interruptNumber] != 0)
-    {
-        esp = InterruptServiceRoutine::handlers[interruptNumber]->HandleInterrupt(esp);
-    }
-    else if(interruptNumber != InterruptServiceRoutine::hardwareInterruptOffset)
-    {
-        printf("UNHANDLED INTERRUPT 0x");
-        printfHex(interruptNumber);
-    }
-/*
-    if(interruptNumber == hardwareInterruptOffset)
-    {
-        esp = (uint32_t)taskManager->Schedule((CPUState*)esp);
-    }
-*/
-    // hardware interrupts must be acknowledged
-    if(InterruptServiceRoutine::hardwareInterruptOffset <= interruptNumber && interruptNumber < InterruptServiceRoutine::hardwareInterruptOffset+16)
-    {
-        InterruptServiceRoutine::programmableInterruptControllerMasterCommandPort.write(0x20);
-        if(InterruptServiceRoutine::hardwareInterruptOffset + 8 <= interruptNumber)
-            InterruptServiceRoutine::programmableInterruptControllerSlaveCommandPort.write(0x20);
-    }
-
     return esp;
 }
 

@@ -64,7 +64,7 @@ extern "C" void kernelMain([[maybe_unused]]void *multiboot_structure,[[maybe_unu
   Service::initialize();
   printf("service started\n");
   Service::run();
-  printf("IDT: Activated");
+  printf("Service: Activated\n");
 
   while(1)
     Service::loop();

@@ -33,10 +33,17 @@ mykernel.iso: Object/kernel/mykernel.bin
 	rm -rf iso
 
 run:clean mykernel.iso
-	(taskkill /IM VirtualBoxVM.exe /F && sleep 1)||true
-	VirtualBoxVM --dbg --startvm "My Operating System" &
+ifeq ($(echo $(VBoxManage.exe list runningvms | grep "My Operating System")),)
+	VBoxManage.exe startvm "My Operating System"
+else
+	VBoxManage.exe controlvm "My Operating System" poweroff soft
+	VBoxManage.exe startvm "My Operating System"
+endif
+
+rebuild:clean mykernel.iso
+
 
 .PHONY:clean
 clean:
 	(rm -rf iso) || true
-	(rm $(OBJECTS) Object/kernel/*.bin) || true
+	(rm $(OBJECTS) *.iso) || true
