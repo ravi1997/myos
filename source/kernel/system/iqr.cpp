@@ -3,8 +3,7 @@
 #endif
 
 uint_32 InterruptServiceRoutine::HandleInterrupt(uint_8 interruptNumber,uint_32 esp){
-    printf("UNHANDLED INTERRUPT 0x");
-    printfHex(interruptNumber);
+    cout<<"UNHANDLED INTERRUPT 0x"<<OutputStream::type::HEX<<interruptNumber<<OutputStream::type::DEC;
     return (interruptEnable)?DoHandleInterrupt(interruptNumber,esp):esp;
 }
 

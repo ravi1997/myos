@@ -1,0 +1,2459 @@
+
+Object/kernel/mykernel.bin:     file format elf32-i386
+
+
+Disassembly of section .text:
+
+00100000 <_start-0xc>:
+  100000:	02 b0 ad 1b 03 00    	add    dh,BYTE PTR [eax+0x31bad]
+  100006:	00 00                	add    BYTE PTR [eax],al
+  100008:	fb                   	sti    
+  100009:	4f                   	dec    edi
+  10000a:	52                   	push   edx
+  10000b:	e4                 	in     al,0xbc
+
+0010000c <_start>:
+  10000c:	bc c0 58 10 00       	mov    esp,0x1058c0
+  100011:	e8 4c 07 00 00       	call   100762 <callConstructors>
+  100016:	50                   	push   eax
+  100017:	53                   	push   ebx
+  100018:	e8 6b 07 00 00       	call   100788 <kernelMain>
+  10001d:	fa                   	cli    
+  10001e:	f4                   	hlt    
+  10001f:	eb fd                	jmp    10001e <_start+0x12>
+
+00100021 <_Z41__static_initialization_and_destruction_0ii>:
+  100021:	55                   	push   ebp
+  100022:	89 e5                	mov    ebp,esp
+  100024:	56                   	push   esi
+  100025:	53                   	push   ebx
+  100026:	83 7d 08 01          	cmp    DWORD PTR [ebp+0x8],0x1
+  10002a:	75 35                	jne    100061 <_Z41__static_initialization_and_destruction_0ii+0x40>
+  10002c:	81 7d 0c ff ff 00 00 	cmp    DWORD PTR [ebp+0xc],0xffff
+  100033:	75 2c                	jne    100061 <_Z41__static_initialization_and_destruction_0ii+0x40>
+  100035:	b8 c0 58 10 00       	mov    eax,0x1058c0
+  10003a:	bb 13 00 00 00       	mov    ebx,0x13
+  10003f:	89 c6                	mov    esi,eax
+  100041:	85 db                	test   ebx,ebx
+  100043:	78 1c                	js     100061 <_Z41__static_initialization_and_destruction_0ii+0x40>
+  100045:	83 ec 0c             	sub    esp,0xc
+  100048:	6a 00                	push   0x0
+  10004a:	6a 00                	push   0x0
+  10004c:	6a 00                	push   0x0
+  10004e:	6a 00                	push   0x0
+  100050:	56                   	push   esi
+  100051:	e8 2e 00 00 00       	call   100084 <_ZN28GlobalDescriptorTableManager16GlobalDescriptorC1Ejjhh>
+  100056:	83 c4 20             	add    esp,0x20
+  100059:	83 c6 08             	add    esi,0x8
+  10005c:	83 eb 01             	sub    ebx,0x1
+  10005f:	eb e0                	jmp    100041 <_Z41__static_initialization_and_destruction_0ii+0x20>
+  100061:	90                   	nop
+  100062:	8d 65 f8             	lea    esp,[ebp-0x8]
+  100065:	5b                   	pop    ebx
+  100066:	5e                   	pop    esi
+  100067:	5d                   	pop    ebp
+  100068:	c3                   	ret    
+
+00100069 <_GLOBAL__sub_I__ZN28GlobalDescriptorTableManager3gdtE>:
+  100069:	55                   	push   ebp
+  10006a:	89 e5                	mov    ebp,esp
+  10006c:	83 ec 08             	sub    esp,0x8
+  10006f:	83 ec 08             	sub    esp,0x8
+  100072:	68 ff ff 00 00       	push   0xffff
+  100077:	6a 01                	push   0x1
+  100079:	e8 a3 ff ff ff       	call   100021 <_Z41__static_initialization_and_destruction_0ii>
+  10007e:	83 c4 10             	add    esp,0x10
+  100081:	c9                   	leave  
+  100082:	c3                   	ret    
+  100083:	90                   	nop
+
+00100084 <_ZN28GlobalDescriptorTableManager16GlobalDescriptorC1Ejjhh>:
+  100084:	55                   	push   ebp
+  100085:	89 e5                	mov    ebp,esp
+  100087:	53                   	push   ebx
+  100088:	83 ec 08             	sub    esp,0x8
+  10008b:	8b 55 14             	mov    edx,DWORD PTR [ebp+0x14]
+  10008e:	8b 45 18             	mov    eax,DWORD PTR [ebp+0x18]
+  100091:	88 55 f8             	mov    BYTE PTR [ebp-0x8],dl
+  100094:	88 45 f4             	mov    BYTE PTR [ebp-0xc],al
+  100097:	8b 45 10             	mov    eax,DWORD PTR [ebp+0x10]
+  10009a:	89 c2                	mov    edx,eax
+  10009c:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  10009f:	66 89 10             	mov    WORD PTR [eax],dx
+  1000a2:	8b 45 0c             	mov    eax,DWORD PTR [ebp+0xc]
+  1000a5:	25 ff ff ff 00       	and    eax,0xffffff
+  1000aa:	89 c2                	mov    edx,eax
+  1000ac:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  1000af:	0f b6 da             	movzx  ebx,dl
+  1000b2:	0f b6 48 02          	movzx  ecx,BYTE PTR [eax+0x2]
+  1000b6:	83 e1 00             	and    ecx,0x0
+  1000b9:	09 d9                	or     ecx,ebx
+  1000bb:	88 48 02             	mov    BYTE PTR [eax+0x2],cl
+  1000be:	89 d1                	mov    ecx,edx
+  1000c0:	c1 e9 08             	shr    ecx,0x8
+  1000c3:	0f b6 d9             	movzx  ebx,cl
+  1000c6:	0f b6 48 03          	movzx  ecx,BYTE PTR [eax+0x3]
+  1000ca:	83 e1 00             	and    ecx,0x0
+  1000cd:	09 d9                	or     ecx,ebx
+  1000cf:	88 48 03             	mov    BYTE PTR [eax+0x3],cl
+  1000d2:	c1 ea 10             	shr    edx,0x10
+  1000d5:	0f b6 ca             	movzx  ecx,dl
+  1000d8:	0f b6 50 04          	movzx  edx,BYTE PTR [eax+0x4]
+  1000dc:	83 e2 00             	and    edx,0x0
+  1000df:	09 ca                	or     edx,ecx
+  1000e1:	88 50 04             	mov    BYTE PTR [eax+0x4],dl
+  1000e4:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  1000e7:	0f b6 55 f8          	movzx  edx,BYTE PTR [ebp-0x8]
+  1000eb:	88 50 05             	mov    BYTE PTR [eax+0x5],dl
+  1000ee:	8b 45 10             	mov    eax,DWORD PTR [ebp+0x10]
+  1000f1:	c1 e8 10             	shr    eax,0x10
+  1000f4:	83 e0 0f             	and    eax,0xf
+  1000f7:	8b 55 08             	mov    edx,DWORD PTR [ebp+0x8]
+  1000fa:	83 e0 0f             	and    eax,0xf
+  1000fd:	89 c1                	mov    ecx,eax
+  1000ff:	0f b6 42 06          	movzx  eax,BYTE PTR [edx+0x6]
+  100103:	83 e0 f0             	and    eax,0xfffffff0
+  100106:	09 c8                	or     eax,ecx
+  100108:	88 42 06             	mov    BYTE PTR [edx+0x6],al
+  10010b:	0f b6 45 f4          	movzx  eax,BYTE PTR [ebp-0xc]
+  10010f:	c0 e8 04             	shr    al,0x4
+  100112:	83 e0 0f             	and    eax,0xf
+  100115:	89 c2                	mov    edx,eax
+  100117:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  10011a:	89 d1                	mov    ecx,edx
+  10011c:	c1 e1 04             	shl    ecx,0x4
+  10011f:	0f b6 50 06          	movzx  edx,BYTE PTR [eax+0x6]
+  100123:	83 e2 0f             	and    edx,0xf
+  100126:	09 ca                	or     edx,ecx
+  100128:	88 50 06             	mov    BYTE PTR [eax+0x6],dl
+  10012b:	8b 45 0c             	mov    eax,DWORD PTR [ebp+0xc]
+  10012e:	c1 e8 18             	shr    eax,0x18
+  100131:	89 c2                	mov    edx,eax
+  100133:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  100136:	88 50 07             	mov    BYTE PTR [eax+0x7],dl
+  100139:	90                   	nop
+  10013a:	83 c4 08             	add    esp,0x8
+  10013d:	5b                   	pop    ebx
+  10013e:	5d                   	pop    ebp
+  10013f:	c3                   	ret    
+
+00100140 <_ZN23InterruptServiceRoutine15HandleInterruptEhj>:
+  100140:	55                   	push   ebp
+  100141:	89 e5                	mov    ebp,esp
+  100143:	83 ec 18             	sub    esp,0x18
+  100146:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  100149:	88 45 f4             	mov    BYTE PTR [ebp-0xc],al
+  10014c:	83 ec 0c             	sub    esp,0xc
+  10014f:	68 9a 13 10 00       	push   0x10139a
+  100154:	e8 a3 03 00 00       	call   1004fc <_Z6printfPKc>
+  100159:	83 c4 10             	add    esp,0x10
+  10015c:	0f b6 45 f4          	movzx  eax,BYTE PTR [ebp-0xc]
+  100160:	83 ec 0c             	sub    esp,0xc
+  100163:	50                   	push   eax
+  100164:	e8 22 05 00 00       	call   10068b <_Z9printfHexh>
+  100169:	83 c4 10             	add    esp,0x10
+  10016c:	0f b6 05 80 5d 10 00 	movzx  eax,BYTE PTR ds:0x105d80
+  100173:	84 c0                	test   al,al
+  100175:	74 15                	je     10018c <_ZN23InterruptServiceRoutine15HandleInterruptEhj+0x4c>
+  100177:	0f b6 45 f4          	movzx  eax,BYTE PTR [ebp-0xc]
+  10017b:	83 ec 08             	sub    esp,0x8
+  10017e:	ff 75 0c             	push   DWORD PTR [ebp+0xc]
+  100181:	50                   	push   eax
+  100182:	e8 3b 01 00 00       	call   1002c2 <_ZN23InterruptServiceRoutine17DoHandleInterruptEhj>
+  100187:	83 c4 10             	add    esp,0x10
+  10018a:	eb 03                	jmp    10018f <_ZN23InterruptServiceRoutine15HandleInterruptEhj+0x4f>
+  10018c:	8b 45 0c             	mov    eax,DWORD PTR [ebp+0xc]
+  10018f:	c9                   	leave  
+  100190:	c3                   	ret    
+
+00100191 <_Z41__static_initialization_and_destruction_0ii>:
+  100191:	55                   	push   ebp
+  100192:	89 e5                	mov    ebp,esp
+  100194:	83 ec 08             	sub    esp,0x8
+  100197:	83 7d 08 01          	cmp    DWORD PTR [ebp+0x8],0x1
+  10019b:	75 57                	jne    1001f4 <_Z41__static_initialization_and_destruction_0ii+0x63>
+  10019d:	81 7d 0c ff ff 00 00 	cmp    DWORD PTR [ebp+0xc],0xffff
+  1001a4:	75 4e                	jne    1001f4 <_Z41__static_initialization_and_destruction_0ii+0x63>
+  1001a6:	83 ec 08             	sub    esp,0x8
+  1001a9:	6a 20                	push   0x20
+  1001ab:	68 a0 65 10 00       	push   0x1065a0
+  1001b0:	e8 c5 00 00 00       	call   10027a <_ZN4PortIhLb1EEC1Et>
+  1001b5:	83 c4 10             	add    esp,0x10
+  1001b8:	83 ec 08             	sub    esp,0x8
+  1001bb:	6a 21                	push   0x21
+  1001bd:	68 a4 65 10 00       	push   0x1065a4
+  1001c2:	e8 b3 00 00 00       	call   10027a <_ZN4PortIhLb1EEC1Et>
+  1001c7:	83 c4 10             	add    esp,0x10
+  1001ca:	83 ec 08             	sub    esp,0x8
+  1001cd:	68 a0 00 00 00       	push   0xa0
+  1001d2:	68 a8 65 10 00       	push   0x1065a8
+  1001d7:	e8 9e 00 00 00       	call   10027a <_ZN4PortIhLb1EEC1Et>
+  1001dc:	83 c4 10             	add    esp,0x10
+  1001df:	83 ec 08             	sub    esp,0x8
+  1001e2:	68 a1 00 00 00       	push   0xa1
+  1001e7:	68 ac 65 10 00       	push   0x1065ac
+  1001ec:	e8 89 00 00 00       	call   10027a <_ZN4PortIhLb1EEC1Et>
+  1001f1:	83 c4 10             	add    esp,0x10
+  1001f4:	83 7d 08 00          	cmp    DWORD PTR [ebp+0x8],0x0
+  1001f8:	75 49                	jne    100243 <_Z41__static_initialization_and_destruction_0ii+0xb2>
+  1001fa:	81 7d 0c ff ff 00 00 	cmp    DWORD PTR [ebp+0xc],0xffff
+  100201:	75 40                	jne    100243 <_Z41__static_initialization_and_destruction_0ii+0xb2>
+  100203:	83 ec 0c             	sub    esp,0xc
+  100206:	68 ac 65 10 00       	push   0x1065ac
+  10020b:	e8 9a 00 00 00       	call   1002aa <_ZN4PortIhLb1EED1Ev>
+  100210:	83 c4 10             	add    esp,0x10
+  100213:	83 ec 0c             	sub    esp,0xc
+  100216:	68 a8 65 10 00       	push   0x1065a8
+  10021b:	e8 8a 00 00 00       	call   1002aa <_ZN4PortIhLb1EED1Ev>
+  100220:	83 c4 10             	add    esp,0x10
+  100223:	83 ec 0c             	sub    esp,0xc
+  100226:	68 a4 65 10 00       	push   0x1065a4
+  10022b:	e8 7a 00 00 00       	call   1002aa <_ZN4PortIhLb1EED1Ev>
+  100230:	83 c4 10             	add    esp,0x10
+  100233:	83 ec 0c             	sub    esp,0xc
+  100236:	68 a0 65 10 00       	push   0x1065a0
+  10023b:	e8 6a 00 00 00       	call   1002aa <_ZN4PortIhLb1EED1Ev>
+  100240:	83 c4 10             	add    esp,0x10
+  100243:	90                   	nop
+  100244:	c9                   	leave  
+  100245:	c3                   	ret    
+
+00100246 <_GLOBAL__sub_I__ZN23InterruptServiceRoutine15HandleInterruptEhj>:
+  100246:	55                   	push   ebp
+  100247:	89 e5                	mov    ebp,esp
+  100249:	83 ec 08             	sub    esp,0x8
+  10024c:	83 ec 08             	sub    esp,0x8
+  10024f:	68 ff ff 00 00       	push   0xffff
+  100254:	6a 01                	push   0x1
+  100256:	e8 36 ff ff ff       	call   100191 <_Z41__static_initialization_and_destruction_0ii>
+  10025b:	83 c4 10             	add    esp,0x10
+  10025e:	c9                   	leave  
+  10025f:	c3                   	ret    
+
+00100260 <_GLOBAL__sub_D__ZN23InterruptServiceRoutine15HandleInterruptEhj>:
+  100260:	55                   	push   ebp
+  100261:	89 e5                	mov    ebp,esp
+  100263:	83 ec 08             	sub    esp,0x8
+  100266:	83 ec 08             	sub    esp,0x8
+  100269:	68 ff ff 00 00       	push   0xffff
+  10026e:	6a 00                	push   0x0
+  100270:	e8 1c ff ff ff       	call   100191 <_Z41__static_initialization_and_destruction_0ii>
+  100275:	83 c4 10             	add    esp,0x10
+  100278:	c9                   	leave  
+  100279:	c3                   	ret    
+
+0010027a <_ZN4PortIhLb1EEC1Et>:
+  10027a:	55                   	push   ebp
+  10027b:	89 e5                	mov    ebp,esp
+  10027d:	83 ec 18             	sub    esp,0x18
+  100280:	8b 45 0c             	mov    eax,DWORD PTR [ebp+0xc]
+  100283:	66 89 45 f4          	mov    WORD PTR [ebp-0xc],ax
+  100287:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  10028a:	0f b7 55 f4          	movzx  edx,WORD PTR [ebp-0xc]
+  10028e:	83 ec 08             	sub    esp,0x8
+  100291:	52                   	push   edx
+  100292:	50                   	push   eax
+  100293:	e8 5c 00 00 00       	call   1002f4 <_ZN4PortIhLb0EEC1Et>
+  100298:	83 c4 10             	add    esp,0x10
+  10029b:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  10029e:	0f b7 55 f4          	movzx  edx,WORD PTR [ebp-0xc]
+  1002a2:	66 89 50 02          	mov    WORD PTR [eax+0x2],dx
+  1002a6:	90                   	nop
+  1002a7:	c9                   	leave  
+  1002a8:	c3                   	ret    
+  1002a9:	90                   	nop
+
+001002aa <_ZN4PortIhLb1EED1Ev>:
+  1002aa:	55                   	push   ebp
+  1002ab:	89 e5                	mov    ebp,esp
+  1002ad:	83 ec 08             	sub    esp,0x8
+  1002b0:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  1002b3:	83 ec 0c             	sub    esp,0xc
+  1002b6:	50                   	push   eax
+  1002b7:	e8 52 00 00 00       	call   10030e <_ZN4PortIhLb0EED1Ev>
+  1002bc:	83 c4 10             	add    esp,0x10
+  1002bf:	90                   	nop
+  1002c0:	c9                   	leave  
+  1002c1:	c3                   	ret    
+
+001002c2 <_ZN23InterruptServiceRoutine17DoHandleInterruptEhj>:
+  1002c2:	55                   	push   ebp
+  1002c3:	89 e5                	mov    ebp,esp
+  1002c5:	83 ec 18             	sub    esp,0x18
+  1002c8:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  1002cb:	88 45 f4             	mov    BYTE PTR [ebp-0xc],al
+  1002ce:	83 ec 0c             	sub    esp,0xc
+  1002d1:	68 9a 13 10 00       	push   0x10139a
+  1002d6:	e8 21 02 00 00       	call   1004fc <_Z6printfPKc>
+  1002db:	83 c4 10             	add    esp,0x10
+  1002de:	0f b6 45 f4          	movzx  eax,BYTE PTR [ebp-0xc]
+  1002e2:	83 ec 0c             	sub    esp,0xc
+  1002e5:	50                   	push   eax
+  1002e6:	e8 a0 03 00 00       	call   10068b <_Z9printfHexh>
+  1002eb:	83 c4 10             	add    esp,0x10
+  1002ee:	8b 45 0c             	mov    eax,DWORD PTR [ebp+0xc]
+  1002f1:	c9                   	leave  
+  1002f2:	c3                   	ret    
+  1002f3:	90                   	nop
+
+001002f4 <_ZN4PortIhLb0EEC1Et>:
+  1002f4:	55                   	push   ebp
+  1002f5:	89 e5                	mov    ebp,esp
+  1002f7:	83 ec 04             	sub    esp,0x4
+  1002fa:	8b 45 0c             	mov    eax,DWORD PTR [ebp+0xc]
+  1002fd:	66 89 45 fc          	mov    WORD PTR [ebp-0x4],ax
+  100301:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  100304:	0f b7 55 fc          	movzx  edx,WORD PTR [ebp-0x4]
+  100308:	66 89 10             	mov    WORD PTR [eax],dx
+  10030b:	90                   	nop
+  10030c:	c9                   	leave  
+  10030d:	c3                   	ret    
+
+0010030e <_ZN4PortIhLb0EED1Ev>:
+  10030e:	55                   	push   ebp
+  10030f:	89 e5                	mov    ebp,esp
+  100311:	90                   	nop
+  100312:	5d                   	pop    ebp
+  100313:	c3                   	ret    
+
+00100314 <_ZN23InterruptServiceRoutine19HandleException0x00Ev>:
+  100314:	c6 05 b8 18 10 00 00 	mov    BYTE PTR ds:0x1018b8,0x0
+  10031b:	e9 bc 01 00 00       	jmp    1004dc <int_bottom>
+
+00100320 <_ZN23InterruptServiceRoutine19HandleException0x01Ev>:
+  100320:	c6 05 b8 18 10 00 01 	mov    BYTE PTR ds:0x1018b8,0x1
+  100327:	e9 b0 01 00 00       	jmp    1004dc <int_bottom>
+
+0010032c <_ZN23InterruptServiceRoutine19HandleException0x02Ev>:
+  10032c:	c6 05 b8 18 10 00 02 	mov    BYTE PTR ds:0x1018b8,0x2
+  100333:	e9 a4 01 00 00       	jmp    1004dc <int_bottom>
+
+00100338 <_ZN23InterruptServiceRoutine19HandleException0x03Ev>:
+  100338:	c6 05 b8 18 10 00 03 	mov    BYTE PTR ds:0x1018b8,0x3
+  10033f:	e9 98 01 00 00       	jmp    1004dc <int_bottom>
+
+00100344 <_ZN23InterruptServiceRoutine19HandleException0x04Ev>:
+  100344:	c6 05 b8 18 10 00 04 	mov    BYTE PTR ds:0x1018b8,0x4
+  10034b:	e9 8c 01 00 00       	jmp    1004dc <int_bottom>
+
+00100350 <_ZN23InterruptServiceRoutine19HandleException0x05Ev>:
+  100350:	c6 05 b8 18 10 00 05 	mov    BYTE PTR ds:0x1018b8,0x5
+  100357:	e9 80 01 00 00       	jmp    1004dc <int_bottom>
+
+0010035c <_ZN23InterruptServiceRoutine19HandleException0x06Ev>:
+  10035c:	c6 05 b8 18 10 00 06 	mov    BYTE PTR ds:0x1018b8,0x6
+  100363:	e9 74 01 00 00       	jmp    1004dc <int_bottom>
+
+00100368 <_ZN23InterruptServiceRoutine19HandleException0x07Ev>:
+  100368:	c6 05 b8 18 10 00 07 	mov    BYTE PTR ds:0x1018b8,0x7
+  10036f:	e9 68 01 00 00       	jmp    1004dc <int_bottom>
+
+00100374 <_ZN23InterruptServiceRoutine19HandleException0x08Ev>:
+  100374:	c6 05 b8 18 10 00 08 	mov    BYTE PTR ds:0x1018b8,0x8
+  10037b:	e9 5c 01 00 00       	jmp    1004dc <int_bottom>
+
+00100380 <_ZN23InterruptServiceRoutine19HandleException0x09Ev>:
+  100380:	c6 05 b8 18 10 00 09 	mov    BYTE PTR ds:0x1018b8,0x9
+  100387:	e9 50 01 00 00       	jmp    1004dc <int_bottom>
+
+0010038c <_ZN23InterruptServiceRoutine19HandleException0x0AEv>:
+  10038c:	c6 05 b8 18 10 00 0a 	mov    BYTE PTR ds:0x1018b8,0xa
+  100393:	e9 44 01 00 00       	jmp    1004dc <int_bottom>
+
+00100398 <_ZN23InterruptServiceRoutine19HandleException0x0BEv>:
+  100398:	c6 05 b8 18 10 00 0b 	mov    BYTE PTR ds:0x1018b8,0xb
+  10039f:	e9 38 01 00 00       	jmp    1004dc <int_bottom>
+
+001003a4 <_ZN23InterruptServiceRoutine19HandleException0x0CEv>:
+  1003a4:	c6 05 b8 18 10 00 0c 	mov    BYTE PTR ds:0x1018b8,0xc
+  1003ab:	e9 2c 01 00 00       	jmp    1004dc <int_bottom>
+
+001003b0 <_ZN23InterruptServiceRoutine19HandleException0x0DEv>:
+  1003b0:	c6 05 b8 18 10 00 0d 	mov    BYTE PTR ds:0x1018b8,0xd
+  1003b7:	e9 20 01 00 00       	jmp    1004dc <int_bottom>
+
+001003bc <_ZN23InterruptServiceRoutine19HandleException0x0EEv>:
+  1003bc:	c6 05 b8 18 10 00 0e 	mov    BYTE PTR ds:0x1018b8,0xe
+  1003c3:	e9 14 01 00 00       	jmp    1004dc <int_bottom>
+
+001003c8 <_ZN23InterruptServiceRoutine19HandleException0x0FEv>:
+  1003c8:	c6 05 b8 18 10 00 0f 	mov    BYTE PTR ds:0x1018b8,0xf
+  1003cf:	e9 08 01 00 00       	jmp    1004dc <int_bottom>
+
+001003d4 <_ZN23InterruptServiceRoutine19HandleException0x10Ev>:
+  1003d4:	c6 05 b8 18 10 00 10 	mov    BYTE PTR ds:0x1018b8,0x10
+  1003db:	e9 fc 00 00 00       	jmp    1004dc <int_bottom>
+
+001003e0 <_ZN23InterruptServiceRoutine19HandleException0x11Ev>:
+  1003e0:	c6 05 b8 18 10 00 11 	mov    BYTE PTR ds:0x1018b8,0x11
+  1003e7:	e9 f0 00 00 00       	jmp    1004dc <int_bottom>
+
+001003ec <_ZN23InterruptServiceRoutine19HandleException0x12Ev>:
+  1003ec:	c6 05 b8 18 10 00 12 	mov    BYTE PTR ds:0x1018b8,0x12
+  1003f3:	e9 e4 00 00 00       	jmp    1004dc <int_bottom>
+
+001003f8 <_ZN23InterruptServiceRoutine19HandleException0x13Ev>:
+  1003f8:	c6 05 b8 18 10 00 13 	mov    BYTE PTR ds:0x1018b8,0x13
+  1003ff:	e9 d8 00 00 00       	jmp    1004dc <int_bottom>
+
+00100404 <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x00Ev>:
+  100404:	c6 05 b8 18 10 00 20 	mov    BYTE PTR ds:0x1018b8,0x20
+  10040b:	6a 00                	push   0x0
+  10040d:	e9 ca 00 00 00       	jmp    1004dc <int_bottom>
+
+00100412 <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x01Ev>:
+  100412:	c6 05 b8 18 10 00 21 	mov    BYTE PTR ds:0x1018b8,0x21
+  100419:	6a 00                	push   0x0
+  10041b:	e9 bc 00 00 00       	jmp    1004dc <int_bottom>
+
+00100420 <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x02Ev>:
+  100420:	c6 05 b8 18 10 00 22 	mov    BYTE PTR ds:0x1018b8,0x22
+  100427:	6a 00                	push   0x0
+  100429:	e9 ae 00 00 00       	jmp    1004dc <int_bottom>
+
+0010042e <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x03Ev>:
+  10042e:	c6 05 b8 18 10 00 23 	mov    BYTE PTR ds:0x1018b8,0x23
+  100435:	6a 00                	push   0x0
+  100437:	e9 a0 00 00 00       	jmp    1004dc <int_bottom>
+
+0010043c <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x04Ev>:
+  10043c:	c6 05 b8 18 10 00 24 	mov    BYTE PTR ds:0x1018b8,0x24
+  100443:	6a 00                	push   0x0
+  100445:	e9 92 00 00 00       	jmp    1004dc <int_bottom>
+
+0010044a <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x05Ev>:
+  10044a:	c6 05 b8 18 10 00 25 	mov    BYTE PTR ds:0x1018b8,0x25
+  100451:	6a 00                	push   0x0
+  100453:	e9 84 00 00 00       	jmp    1004dc <int_bottom>
+
+00100458 <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x06Ev>:
+  100458:	c6 05 b8 18 10 00 26 	mov    BYTE PTR ds:0x1018b8,0x26
+  10045f:	6a 00                	push   0x0
+  100461:	eb 79                	jmp    1004dc <int_bottom>
+
+00100463 <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x07Ev>:
+  100463:	c6 05 b8 18 10 00 27 	mov    BYTE PTR ds:0x1018b8,0x27
+  10046a:	6a 00                	push   0x0
+  10046c:	eb 6e                	jmp    1004dc <int_bottom>
+
+0010046e <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x08Ev>:
+  10046e:	c6 05 b8 18 10 00 28 	mov    BYTE PTR ds:0x1018b8,0x28
+  100475:	6a 00                	push   0x0
+  100477:	eb 63                	jmp    1004dc <int_bottom>
+
+00100479 <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x09Ev>:
+  100479:	c6 05 b8 18 10 00 29 	mov    BYTE PTR ds:0x1018b8,0x29
+  100480:	6a 00                	push   0x0
+  100482:	eb 58                	jmp    1004dc <int_bottom>
+
+00100484 <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x0AEv>:
+  100484:	c6 05 b8 18 10 00 2a 	mov    BYTE PTR ds:0x1018b8,0x2a
+  10048b:	6a 00                	push   0x0
+  10048d:	eb 4d                	jmp    1004dc <int_bottom>
+
+0010048f <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x0BEv>:
+  10048f:	c6 05 b8 18 10 00 2b 	mov    BYTE PTR ds:0x1018b8,0x2b
+  100496:	6a 00                	push   0x0
+  100498:	eb 42                	jmp    1004dc <int_bottom>
+
+0010049a <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x0CEv>:
+  10049a:	c6 05 b8 18 10 00 2c 	mov    BYTE PTR ds:0x1018b8,0x2c
+  1004a1:	6a 00                	push   0x0
+  1004a3:	eb 37                	jmp    1004dc <int_bottom>
+
+001004a5 <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x0DEv>:
+  1004a5:	c6 05 b8 18 10 00 2d 	mov    BYTE PTR ds:0x1018b8,0x2d
+  1004ac:	6a 00                	push   0x0
+  1004ae:	eb 2c                	jmp    1004dc <int_bottom>
+
+001004b0 <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x0EEv>:
+  1004b0:	c6 05 b8 18 10 00 2e 	mov    BYTE PTR ds:0x1018b8,0x2e
+  1004b7:	6a 00                	push   0x0
+  1004b9:	eb 21                	jmp    1004dc <int_bottom>
+
+001004bb <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x0FEv>:
+  1004bb:	c6 05 b8 18 10 00 2f 	mov    BYTE PTR ds:0x1018b8,0x2f
+  1004c2:	6a 00                	push   0x0
+  1004c4:	eb 16                	jmp    1004dc <int_bottom>
+
+001004c6 <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x31Ev>:
+  1004c6:	c6 05 b8 18 10 00 51 	mov    BYTE PTR ds:0x1018b8,0x51
+  1004cd:	6a 00                	push   0x0
+  1004cf:	eb 0b                	jmp    1004dc <int_bottom>
+
+001004d1 <_ZN23InterruptServiceRoutine26HandleInterruptRequest0x80Ev>:
+  1004d1:	c6 05 b8 18 10 00 a0 	mov    BYTE PTR ds:0x1018b8,0xa0
+  1004d8:	6a 00                	push   0x0
+  1004da:	eb 00                	jmp    1004dc <int_bottom>
+
+001004dc <int_bottom>:
+  1004dc:	55                   	push   ebp
+  1004dd:	57                   	push   edi
+  1004de:	56                   	push   esi
+  1004df:	52                   	push   edx
+  1004e0:	51                   	push   ecx
+  1004e1:	53                   	push   ebx
+  1004e2:	50                   	push   eax
+  1004e3:	54                   	push   esp
+  1004e4:	ff 35 b8 18 10 00    	push   DWORD PTR ds:0x1018b8
+  1004ea:	e8 51 fc ff ff       	call   100140 <_ZN23InterruptServiceRoutine15HandleInterruptEhj>
+  1004ef:	89 c4                	mov    esp,eax
+  1004f1:	58                   	pop    eax
+  1004f2:	5b                   	pop    ebx
+  1004f3:	59                   	pop    ecx
+  1004f4:	5a                   	pop    edx
+  1004f5:	5e                   	pop    esi
+  1004f6:	5f                   	pop    edi
+  1004f7:	5d                   	pop    ebp
+  1004f8:	83 c4 04             	add    esp,0x4
+
+001004fb <_ZN23InterruptServiceRoutine15InterruptIgnoreEv>:
+  1004fb:	cf                   	iret   
+
+001004fc <_Z6printfPKc>:
+  1004fc:	55                   	push   ebp
+  1004fd:	89 e5                	mov    ebp,esp
+  1004ff:	53                   	push   ebx
+  100500:	83 ec 10             	sub    esp,0x10
+  100503:	c7 45 f8 00 00 00 00 	mov    DWORD PTR [ebp-0x8],0x0
+  10050a:	8b 55 f8             	mov    edx,DWORD PTR [ebp-0x8]
+  10050d:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  100510:	01 d0                	add    eax,edx
+  100512:	0f b6 00             	movzx  eax,BYTE PTR [eax]
+  100515:	84 c0                	test   al,al
+  100517:	0f 84 67 01 00 00    	je     100684 <_Z6printfPKc+0x188>
+  10051d:	8b 55 f8             	mov    edx,DWORD PTR [ebp-0x8]
+  100520:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  100523:	01 d0                	add    eax,edx
+  100525:	0f b6 00             	movzx  eax,BYTE PTR [eax]
+  100528:	0f be c0             	movsx  eax,al
+  10052b:	83 f8 0a             	cmp    eax,0xa
+  10052e:	75 1b                	jne    10054b <_Z6printfPKc+0x4f>
+  100530:	0f b6 05 b1 65 10 00 	movzx  eax,BYTE PTR ds:0x1065b1
+  100537:	83 c0 01             	add    eax,0x1
+  10053a:	a2 b1 65 10 00       	mov    ds:0x1065b1,al
+  10053f:	c6 05 b0 65 10 00 00 	mov    BYTE PTR ds:0x1065b0,0x0
+  100546:	e9 85 00 00 00       	jmp    1005d0 <_Z6printfPKc+0xd4>
+  10054b:	8b 0d bc 18 10 00    	mov    ecx,DWORD PTR ds:0x1018bc
+  100551:	0f b6 05 b1 65 10 00 	movzx  eax,BYTE PTR ds:0x1065b1
+  100558:	0f b6 d0             	movzx  edx,al
+  10055b:	89 d0                	mov    eax,edx
+  10055d:	c1 e0 02             	shl    eax,0x2
+  100560:	01 d0                	add    eax,edx
+  100562:	c1 e0 04             	shl    eax,0x4
+  100565:	89 c2                	mov    edx,eax
+  100567:	0f b6 05 b0 65 10 00 	movzx  eax,BYTE PTR ds:0x1065b0
+  10056e:	0f b6 c0             	movzx  eax,al
+  100571:	01 d0                	add    eax,edx
+  100573:	01 c0                	add    eax,eax
+  100575:	01 c8                	add    eax,ecx
+  100577:	0f b7 00             	movzx  eax,WORD PTR [eax]
+  10057a:	b0 00                	mov    al,0x0
+  10057c:	89 c1                	mov    ecx,eax
+  10057e:	8b 55 f8             	mov    edx,DWORD PTR [ebp-0x8]
+  100581:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  100584:	01 d0                	add    eax,edx
+  100586:	0f b6 00             	movzx  eax,BYTE PTR [eax]
+  100589:	66 98                	cbw    
+  10058b:	89 cb                	mov    ebx,ecx
+  10058d:	09 c3                	or     ebx,eax
+  10058f:	8b 0d bc 18 10 00    	mov    ecx,DWORD PTR ds:0x1018bc
+  100595:	0f b6 05 b1 65 10 00 	movzx  eax,BYTE PTR ds:0x1065b1
+  10059c:	0f b6 d0             	movzx  edx,al
+  10059f:	89 d0                	mov    eax,edx
+  1005a1:	c1 e0 02             	shl    eax,0x2
+  1005a4:	01 d0                	add    eax,edx
+  1005a6:	c1 e0 04             	shl    eax,0x4
+  1005a9:	89 c2                	mov    edx,eax
+  1005ab:	0f b6 05 b0 65 10 00 	movzx  eax,BYTE PTR ds:0x1065b0
+  1005b2:	0f b6 c0             	movzx  eax,al
+  1005b5:	01 d0                	add    eax,edx
+  1005b7:	01 c0                	add    eax,eax
+  1005b9:	01 c8                	add    eax,ecx
+  1005bb:	89 da                	mov    edx,ebx
+  1005bd:	66 89 10             	mov    WORD PTR [eax],dx
+  1005c0:	0f b6 05 b0 65 10 00 	movzx  eax,BYTE PTR ds:0x1065b0
+  1005c7:	83 c0 01             	add    eax,0x1
+  1005ca:	a2 b0 65 10 00       	mov    ds:0x1065b0,al
+  1005cf:	90                   	nop
+  1005d0:	0f b6 05 b0 65 10 00 	movzx  eax,BYTE PTR ds:0x1065b0
+  1005d7:	3c 50                	cmp    al,0x50
+  1005d9:	75 16                	jne    1005f1 <_Z6printfPKc+0xf5>
+  1005db:	c6 05 b0 65 10 00 00 	mov    BYTE PTR ds:0x1065b0,0x0
+  1005e2:	0f b6 05 b1 65 10 00 	movzx  eax,BYTE PTR ds:0x1065b1
+  1005e9:	83 c0 01             	add    eax,0x1
+  1005ec:	a2 b1 65 10 00       	mov    ds:0x1065b1,al
+  1005f1:	0f b6 05 b1 65 10 00 	movzx  eax,BYTE PTR ds:0x1065b1
+  1005f8:	3c 19                	cmp    al,0x19
+  1005fa:	75 7f                	jne    10067b <_Z6printfPKc+0x17f>
+  1005fc:	c7 45 f4 00 00 00 00 	mov    DWORD PTR [ebp-0xc],0x0
+  100603:	83 7d f4 4f          	cmp    DWORD PTR [ebp-0xc],0x4f
+  100607:	7f 64                	jg     10066d <_Z6printfPKc+0x171>
+  100609:	c7 45 f0 00 00 00 00 	mov    DWORD PTR [ebp-0x10],0x0
+  100610:	83 7d f0 18          	cmp    DWORD PTR [ebp-0x10],0x18
+  100614:	7f 51                	jg     100667 <_Z6printfPKc+0x16b>
+  100616:	8b 0d bc 18 10 00    	mov    ecx,DWORD PTR ds:0x1018bc
+  10061c:	8b 55 f0             	mov    edx,DWORD PTR [ebp-0x10]
+  10061f:	89 d0                	mov    eax,edx
+  100621:	c1 e0 02             	shl    eax,0x2
+  100624:	01 d0                	add    eax,edx
+  100626:	c1 e0 04             	shl    eax,0x4
+  100629:	89 c2                	mov    edx,eax
+  10062b:	8b 45 f4             	mov    eax,DWORD PTR [ebp-0xc]
+  10062e:	01 d0                	add    eax,edx
+  100630:	01 c0                	add    eax,eax
+  100632:	01 c8                	add    eax,ecx
+  100634:	0f b7 00             	movzx  eax,WORD PTR [eax]
+  100637:	b0 00                	mov    al,0x0
+  100639:	89 c3                	mov    ebx,eax
+  10063b:	8b 0d bc 18 10 00    	mov    ecx,DWORD PTR ds:0x1018bc
+  100641:	8b 55 f0             	mov    edx,DWORD PTR [ebp-0x10]
+  100644:	89 d0                	mov    eax,edx
+  100646:	c1 e0 02             	shl    eax,0x2
+  100649:	01 d0                	add    eax,edx
+  10064b:	c1 e0 04             	shl    eax,0x4
+  10064e:	89 c2                	mov    edx,eax
+  100650:	8b 45 f4             	mov    eax,DWORD PTR [ebp-0xc]
+  100653:	01 d0                	add    eax,edx
+  100655:	01 c0                	add    eax,eax
+  100657:	01 c8                	add    eax,ecx
+  100659:	83 cb 20             	or     ebx,0x20
+  10065c:	89 da                	mov    edx,ebx
+  10065e:	66 89 10             	mov    WORD PTR [eax],dx
+  100661:	83 45 f0 01          	add    DWORD PTR [ebp-0x10],0x1
+  100665:	eb a9                	jmp    100610 <_Z6printfPKc+0x114>
+  100667:	83 45 f4 01          	add    DWORD PTR [ebp-0xc],0x1
+  10066b:	eb 96                	jmp    100603 <_Z6printfPKc+0x107>
+  10066d:	c6 05 b0 65 10 00 00 	mov    BYTE PTR ds:0x1065b0,0x0
+  100674:	c6 05 b1 65 10 00 00 	mov    BYTE PTR ds:0x1065b1,0x0
+  10067b:	83 45 f8 01          	add    DWORD PTR [ebp-0x8],0x1
+  10067f:	e9 86 fe ff ff       	jmp    10050a <_Z6printfPKc+0xe>
+  100684:	90                   	nop
+  100685:	83 c4 10             	add    esp,0x10
+  100688:	5b                   	pop    ebx
+  100689:	5d                   	pop    ebp
+  10068a:	c3                   	ret    
+
+0010068b <_Z9printfHexh>:
+  10068b:	55                   	push   ebp
+  10068c:	89 e5                	mov    ebp,esp
+  10068e:	83 ec 14             	sub    esp,0x14
+  100691:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  100694:	88 45 ec             	mov    BYTE PTR [ebp-0x14],al
+  100697:	c7 45 fc b1 13 10 00 	mov    DWORD PTR [ebp-0x4],0x1013b1
+  10069e:	c7 45 f8 b4 13 10 00 	mov    DWORD PTR [ebp-0x8],0x1013b4
+  1006a5:	0f b6 45 ec          	movzx  eax,BYTE PTR [ebp-0x14]
+  1006a9:	c0 e8 04             	shr    al,0x4
+  1006ac:	0f b6 d0             	movzx  edx,al
+  1006af:	8b 45 f8             	mov    eax,DWORD PTR [ebp-0x8]
+  1006b2:	01 d0                	add    eax,edx
+  1006b4:	0f b6 10             	movzx  edx,BYTE PTR [eax]
+  1006b7:	8b 45 fc             	mov    eax,DWORD PTR [ebp-0x4]
+  1006ba:	88 10                	mov    BYTE PTR [eax],dl
+  1006bc:	0f b6 45 ec          	movzx  eax,BYTE PTR [ebp-0x14]
+  1006c0:	83 e0 0f             	and    eax,0xf
+  1006c3:	89 c2                	mov    edx,eax
+  1006c5:	8b 45 f8             	mov    eax,DWORD PTR [ebp-0x8]
+  1006c8:	01 d0                	add    eax,edx
+  1006ca:	8b 55 fc             	mov    edx,DWORD PTR [ebp-0x4]
+  1006cd:	83 c2 01             	add    edx,0x1
+  1006d0:	0f b6 00             	movzx  eax,BYTE PTR [eax]
+  1006d3:	88 02                	mov    BYTE PTR [edx],al
+  1006d5:	ff 75 fc             	push   DWORD PTR [ebp-0x4]
+  1006d8:	e8 1f fe ff ff       	call   1004fc <_Z6printfPKc>
+  1006dd:	83 c4 04             	add    esp,0x4
+  1006e0:	90                   	nop
+  1006e1:	c9                   	leave  
+  1006e2:	c3                   	ret    
+
+001006e3 <_Z11printfHex16t>:
+  1006e3:	55                   	push   ebp
+  1006e4:	89 e5                	mov    ebp,esp
+  1006e6:	83 ec 04             	sub    esp,0x4
+  1006e9:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  1006ec:	66 89 45 fc          	mov    WORD PTR [ebp-0x4],ax
+  1006f0:	0f b7 45 fc          	movzx  eax,WORD PTR [ebp-0x4]
+  1006f4:	66 c1 e8 08          	shr    ax,0x8
+  1006f8:	0f b6 c0             	movzx  eax,al
+  1006fb:	50                   	push   eax
+  1006fc:	e8 8a ff ff ff       	call   10068b <_Z9printfHexh>
+  100701:	83 c4 04             	add    esp,0x4
+  100704:	0f b7 45 fc          	movzx  eax,WORD PTR [ebp-0x4]
+  100708:	0f b6 c0             	movzx  eax,al
+  10070b:	50                   	push   eax
+  10070c:	e8 7a ff ff ff       	call   10068b <_Z9printfHexh>
+  100711:	83 c4 04             	add    esp,0x4
+  100714:	90                   	nop
+  100715:	c9                   	leave  
+  100716:	c3                   	ret    
+
+00100717 <_Z11printfHex32j>:
+  100717:	55                   	push   ebp
+  100718:	89 e5                	mov    ebp,esp
+  10071a:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  10071d:	c1 e8 18             	shr    eax,0x18
+  100720:	0f b6 c0             	movzx  eax,al
+  100723:	50                   	push   eax
+  100724:	e8 62 ff ff ff       	call   10068b <_Z9printfHexh>
+  100729:	83 c4 04             	add    esp,0x4
+  10072c:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  10072f:	c1 e8 10             	shr    eax,0x10
+  100732:	0f b6 c0             	movzx  eax,al
+  100735:	50                   	push   eax
+  100736:	e8 50 ff ff ff       	call   10068b <_Z9printfHexh>
+  10073b:	83 c4 04             	add    esp,0x4
+  10073e:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  100741:	c1 e8 08             	shr    eax,0x8
+  100744:	0f b6 c0             	movzx  eax,al
+  100747:	50                   	push   eax
+  100748:	e8 3e ff ff ff       	call   10068b <_Z9printfHexh>
+  10074d:	83 c4 04             	add    esp,0x4
+  100750:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  100753:	0f b6 c0             	movzx  eax,al
+  100756:	50                   	push   eax
+  100757:	e8 2f ff ff ff       	call   10068b <_Z9printfHexh>
+  10075c:	83 c4 04             	add    esp,0x4
+  10075f:	90                   	nop
+  100760:	c9                   	leave  
+  100761:	c3                   	ret    
+
+00100762 <callConstructors>:
+  100762:	55                   	push   ebp
+  100763:	89 e5                	mov    ebp,esp
+  100765:	83 ec 18             	sub    esp,0x18
+  100768:	c7 45 f4 b0 18 10 00 	mov    DWORD PTR [ebp-0xc],0x1018b0
+  10076f:	81 7d f4 b8 18 10 00 	cmp    DWORD PTR [ebp-0xc],0x1018b8
+  100776:	74 0d                	je     100785 <callConstructors+0x23>
+  100778:	8b 45 f4             	mov    eax,DWORD PTR [ebp-0xc]
+  10077b:	8b 00                	mov    eax,DWORD PTR [eax]
+  10077d:	ff d0                	call   eax
+  10077f:	83 45 f4 04          	add    DWORD PTR [ebp-0xc],0x4
+  100783:	eb ea                	jmp    10076f <callConstructors+0xd>
+  100785:	90                   	nop
+  100786:	c9                   	leave  
+  100787:	c3                   	ret    
+
+00100788 <kernelMain>:
+  100788:	55                   	push   ebp
+  100789:	89 e5                	mov    ebp,esp
+  10078b:	83 ec 08             	sub    esp,0x8
+  10078e:	68 c5 13 10 00       	push   0x1013c5
+  100793:	e8 64 fd ff ff       	call   1004fc <_Z6printfPKc>
+  100798:	83 c4 04             	add    esp,0x4
+  10079b:	e8 ce 0b 00 00       	call   10136e <_ZN7Service10initializeEv>
+  1007a0:	83 ec 0c             	sub    esp,0xc
+  1007a3:	68 da 13 10 00       	push   0x1013da
+  1007a8:	e8 4f fd ff ff       	call   1004fc <_Z6printfPKc>
+  1007ad:	83 c4 10             	add    esp,0x10
+  1007b0:	e8 cc 0b 00 00       	call   101381 <_ZN7Service3runEv>
+  1007b5:	83 ec 0c             	sub    esp,0xc
+  1007b8:	68 eb 13 10 00       	push   0x1013eb
+  1007bd:	e8 3a fd ff ff       	call   1004fc <_Z6printfPKc>
+  1007c2:	83 c4 10             	add    esp,0x10
+  1007c5:	e8 ca 0b 00 00       	call   101394 <_ZN7Service4loopEv>
+  1007ca:	eb f9                	jmp    1007c5 <kernelMain+0x3d>
+
+001007cc <_ZN28GlobalDescriptorTableManager16GlobalDescriptoraSERKS0_>:
+  1007cc:	55                   	push   ebp
+  1007cd:	89 e5                	mov    ebp,esp
+  1007cf:	53                   	push   ebx
+  1007d0:	8b 45 0c             	mov    eax,DWORD PTR [ebp+0xc]
+  1007d3:	0f b7 10             	movzx  edx,WORD PTR [eax]
+  1007d6:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  1007d9:	66 89 10             	mov    WORD PTR [eax],dx
+  1007dc:	8b 45 0c             	mov    eax,DWORD PTR [ebp+0xc]
+  1007df:	0f b6 50 02          	movzx  edx,BYTE PTR [eax+0x2]
+  1007e3:	0f b6 48 03          	movzx  ecx,BYTE PTR [eax+0x3]
+  1007e7:	c1 e1 08             	shl    ecx,0x8
+  1007ea:	09 ca                	or     edx,ecx
+  1007ec:	0f b6 40 04          	movzx  eax,BYTE PTR [eax+0x4]
+  1007f0:	c1 e0 10             	shl    eax,0x10
+  1007f3:	09 d0                	or     eax,edx
+  1007f5:	89 c2                	mov    edx,eax
+  1007f7:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  1007fa:	0f b6 da             	movzx  ebx,dl
+  1007fd:	0f b6 48 02          	movzx  ecx,BYTE PTR [eax+0x2]
+  100801:	83 e1 00             	and    ecx,0x0
+  100804:	09 d9                	or     ecx,ebx
+  100806:	88 48 02             	mov    BYTE PTR [eax+0x2],cl
+  100809:	89 d1                	mov    ecx,edx
+  10080b:	c1 e9 08             	shr    ecx,0x8
+  10080e:	0f b6 d9             	movzx  ebx,cl
+  100811:	0f b6 48 03          	movzx  ecx,BYTE PTR [eax+0x3]
+  100815:	83 e1 00             	and    ecx,0x0
+  100818:	09 d9                	or     ecx,ebx
+  10081a:	88 48 03             	mov    BYTE PTR [eax+0x3],cl
+  10081d:	c1 ea 10             	shr    edx,0x10
+  100820:	0f b6 ca             	movzx  ecx,dl
+  100823:	0f b6 50 04          	movzx  edx,BYTE PTR [eax+0x4]
+  100827:	83 e2 00             	and    edx,0x0
+  10082a:	09 ca                	or     edx,ecx
+  10082c:	88 50 04             	mov    BYTE PTR [eax+0x4],dl
+  10082f:	8b 45 0c             	mov    eax,DWORD PTR [ebp+0xc]
+  100832:	0f b6 50 05          	movzx  edx,BYTE PTR [eax+0x5]
+  100836:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  100839:	88 50 05             	mov    BYTE PTR [eax+0x5],dl
+  10083c:	8b 45 0c             	mov    eax,DWORD PTR [ebp+0xc]
+  10083f:	0f b6 40 06          	movzx  eax,BYTE PTR [eax+0x6]
+  100843:	83 e0 0f             	and    eax,0xf
+  100846:	89 c2                	mov    edx,eax
+  100848:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  10084b:	89 d1                	mov    ecx,edx
+  10084d:	83 e1 0f             	and    ecx,0xf
+  100850:	0f b6 50 06          	movzx  edx,BYTE PTR [eax+0x6]
+  100854:	83 e2 f0             	and    edx,0xfffffff0
+  100857:	09 ca                	or     edx,ecx
+  100859:	88 50 06             	mov    BYTE PTR [eax+0x6],dl
+  10085c:	8b 45 0c             	mov    eax,DWORD PTR [ebp+0xc]
+  10085f:	0f b6 40 06          	movzx  eax,BYTE PTR [eax+0x6]
+  100863:	c0 e8 04             	shr    al,0x4
+  100866:	89 c2                	mov    edx,eax
+  100868:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  10086b:	89 d1                	mov    ecx,edx
+  10086d:	c1 e1 04             	shl    ecx,0x4
+  100870:	0f b6 50 06          	movzx  edx,BYTE PTR [eax+0x6]
+  100874:	83 e2 0f             	and    edx,0xf
+  100877:	09 ca                	or     edx,ecx
+  100879:	88 50 06             	mov    BYTE PTR [eax+0x6],dl
+  10087c:	8b 45 0c             	mov    eax,DWORD PTR [ebp+0xc]
+  10087f:	0f b6 50 07          	movzx  edx,BYTE PTR [eax+0x7]
+  100883:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  100886:	88 50 07             	mov    BYTE PTR [eax+0x7],dl
+  100889:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  10088c:	5b                   	pop    ebx
+  10088d:	5d                   	pop    ebp
+  10088e:	c3                   	ret    
+
+0010088f <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE>:
+  10088f:	55                   	push   ebp
+  100890:	89 e5                	mov    ebp,esp
+  100892:	83 ec 28             	sub    esp,0x28
+  100895:	8b 55 18             	mov    edx,DWORD PTR [ebp+0x18]
+  100898:	8b 45 1c             	mov    eax,DWORD PTR [ebp+0x1c]
+  10089b:	88 55 e4             	mov    BYTE PTR [ebp-0x1c],dl
+  10089e:	88 45 e0             	mov    BYTE PTR [ebp-0x20],al
+  1008a1:	0f b6 45 e0          	movzx  eax,BYTE PTR [ebp-0x20]
+  1008a5:	84 c0                	test   al,al
+  1008a7:	74 07                	je     1008b0 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0x21>
+  1008a9:	b8 80 ff ff ff       	mov    eax,0xffffff80
+  1008ae:	eb 05                	jmp    1008b5 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0x26>
+  1008b0:	b8 00 00 00 00       	mov    eax,0x0
+  1008b5:	88 45 f7             	mov    BYTE PTR [ebp-0x9],al
+  1008b8:	8b 45 14             	mov    eax,DWORD PTR [ebp+0x14]
+  1008bb:	83 f8 01             	cmp    eax,0x1
+  1008be:	74 15                	je     1008d5 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0x46>
+  1008c0:	83 f8 01             	cmp    eax,0x1
+  1008c3:	7f 04                	jg     1008c9 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0x3a>
+  1008c5:	85 c0                	test   eax,eax
+  1008c7:	eb 1d                	jmp    1008e6 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0x57>
+  1008c9:	83 f8 02             	cmp    eax,0x2
+  1008cc:	74 0d                	je     1008db <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0x4c>
+  1008ce:	83 f8 03             	cmp    eax,0x3
+  1008d1:	74 0e                	je     1008e1 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0x52>
+  1008d3:	eb 11                	jmp    1008e6 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0x57>
+  1008d5:	80 4d f7 20          	or     BYTE PTR [ebp-0x9],0x20
+  1008d9:	eb 0b                	jmp    1008e6 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0x57>
+  1008db:	80 4d f7 40          	or     BYTE PTR [ebp-0x9],0x40
+  1008df:	eb 05                	jmp    1008e6 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0x57>
+  1008e1:	80 4d f7 60          	or     BYTE PTR [ebp-0x9],0x60
+  1008e5:	90                   	nop
+  1008e6:	83 7d 20 0f          	cmp    DWORD PTR [ebp+0x20],0xf
+  1008ea:	77 6a                	ja     100956 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xc7>
+  1008ec:	8b 45 20             	mov    eax,DWORD PTR [ebp+0x20]
+  1008ef:	c1 e0 02             	shl    eax,0x2
+  1008f2:	05 70 18 10 00       	add    eax,0x101870
+  1008f7:	8b 00                	mov    eax,DWORD PTR [eax]
+  1008f9:	ff e0                	jmp    eax
+  1008fb:	80 4d f7 01          	or     BYTE PTR [ebp-0x9],0x1
+  1008ff:	eb 55                	jmp    100956 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xc7>
+  100901:	80 4d f7 02          	or     BYTE PTR [ebp-0x9],0x2
+  100905:	eb 4f                	jmp    100956 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xc7>
+  100907:	80 4d f7 03          	or     BYTE PTR [ebp-0x9],0x3
+  10090b:	eb 49                	jmp    100956 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xc7>
+  10090d:	80 4d f7 04          	or     BYTE PTR [ebp-0x9],0x4
+  100911:	eb 43                	jmp    100956 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xc7>
+  100913:	80 4d f7 05          	or     BYTE PTR [ebp-0x9],0x5
+  100917:	eb 3d                	jmp    100956 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xc7>
+  100919:	80 4d f7 06          	or     BYTE PTR [ebp-0x9],0x6
+  10091d:	eb 37                	jmp    100956 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xc7>
+  10091f:	80 4d f7 07          	or     BYTE PTR [ebp-0x9],0x7
+  100923:	eb 31                	jmp    100956 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xc7>
+  100925:	80 4d f7 08          	or     BYTE PTR [ebp-0x9],0x8
+  100929:	eb 2b                	jmp    100956 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xc7>
+  10092b:	80 4d f7 09          	or     BYTE PTR [ebp-0x9],0x9
+  10092f:	eb 25                	jmp    100956 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xc7>
+  100931:	80 4d f7 0a          	or     BYTE PTR [ebp-0x9],0xa
+  100935:	eb 1f                	jmp    100956 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xc7>
+  100937:	80 4d f7 0b          	or     BYTE PTR [ebp-0x9],0xb
+  10093b:	eb 19                	jmp    100956 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xc7>
+  10093d:	80 4d f7 0c          	or     BYTE PTR [ebp-0x9],0xc
+  100941:	eb 13                	jmp    100956 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xc7>
+  100943:	80 4d f7 0d          	or     BYTE PTR [ebp-0x9],0xd
+  100947:	eb 0d                	jmp    100956 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xc7>
+  100949:	80 4d f7 0e          	or     BYTE PTR [ebp-0x9],0xe
+  10094d:	eb 07                	jmp    100956 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xc7>
+  10094f:	80 4d f7 0f          	or     BYTE PTR [ebp-0x9],0xf
+  100953:	eb 01                	jmp    100956 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xc7>
+  100955:	90                   	nop
+  100956:	0f b6 45 e4          	movzx  eax,BYTE PTR [ebp-0x1c]
+  10095a:	84 c0                	test   al,al
+  10095c:	74 07                	je     100965 <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xd6>
+  10095e:	b8 80 ff ff ff       	mov    eax,0xffffff80
+  100963:	eb 05                	jmp    10096a <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE+0xdb>
+  100965:	b8 00 00 00 00       	mov    eax,0x0
+  10096a:	88 45 f6             	mov    BYTE PTR [ebp-0xa],al
+  10096d:	0f b6 55 f6          	movzx  edx,BYTE PTR [ebp-0xa]
+  100971:	0f b6 45 f7          	movzx  eax,BYTE PTR [ebp-0x9]
+  100975:	83 ec 0c             	sub    esp,0xc
+  100978:	52                   	push   edx
+  100979:	50                   	push   eax
+  10097a:	ff 75 10             	push   DWORD PTR [ebp+0x10]
+  10097d:	ff 75 0c             	push   DWORD PTR [ebp+0xc]
+  100980:	ff 75 08             	push   DWORD PTR [ebp+0x8]
+  100983:	e8 fc f6 ff ff       	call   100084 <_ZN28GlobalDescriptorTableManager16GlobalDescriptorC1Ejjhh>
+  100988:	83 c4 20             	add    esp,0x20
+  10098b:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  10098e:	c9                   	leave  
+  10098f:	c2 04 00             	ret    0x4
+
+00100992 <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb>:
+  100992:	55                   	push   ebp
+  100993:	89 e5                	mov    ebp,esp
+  100995:	57                   	push   edi
+  100996:	56                   	push   esi
+  100997:	53                   	push   ebx
+  100998:	83 ec 3c             	sub    esp,0x3c
+  10099b:	8b 45 18             	mov    eax,DWORD PTR [ebp+0x18]
+  10099e:	8b 4d 1c             	mov    ecx,DWORD PTR [ebp+0x1c]
+  1009a1:	89 4d b8             	mov    DWORD PTR [ebp-0x48],ecx
+  1009a4:	8b 7d 20             	mov    edi,DWORD PTR [ebp+0x20]
+  1009a7:	8b 75 24             	mov    esi,DWORD PTR [ebp+0x24]
+  1009aa:	8b 5d 28             	mov    ebx,DWORD PTR [ebp+0x28]
+  1009ad:	8b 4d 2c             	mov    ecx,DWORD PTR [ebp+0x2c]
+  1009b0:	8b 55 30             	mov    edx,DWORD PTR [ebp+0x30]
+  1009b3:	88 45 d4             	mov    BYTE PTR [ebp-0x2c],al
+  1009b6:	0f b6 45 b8          	movzx  eax,BYTE PTR [ebp-0x48]
+  1009ba:	88 45 d0             	mov    BYTE PTR [ebp-0x30],al
+  1009bd:	89 f8                	mov    eax,edi
+  1009bf:	88 45 cc             	mov    BYTE PTR [ebp-0x34],al
+  1009c2:	89 f0                	mov    eax,esi
+  1009c4:	88 45 c8             	mov    BYTE PTR [ebp-0x38],al
+  1009c7:	89 d8                	mov    eax,ebx
+  1009c9:	88 45 c4             	mov    BYTE PTR [ebp-0x3c],al
+  1009cc:	89 c8                	mov    eax,ecx
+  1009ce:	88 45 c0             	mov    BYTE PTR [ebp-0x40],al
+  1009d1:	89 d0                	mov    eax,edx
+  1009d3:	88 45 bc             	mov    BYTE PTR [ebp-0x44],al
+  1009d6:	0f b6 45 c8          	movzx  eax,BYTE PTR [ebp-0x38]
+  1009da:	84 c0                	test   al,al
+  1009dc:	74 07                	je     1009e5 <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x53>
+  1009de:	b8 80 ff ff ff       	mov    eax,0xffffff80
+  1009e3:	eb 05                	jmp    1009ea <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x58>
+  1009e5:	b8 00 00 00 00       	mov    eax,0x0
+  1009ea:	88 45 e7             	mov    BYTE PTR [ebp-0x19],al
+  1009ed:	8b 45 14             	mov    eax,DWORD PTR [ebp+0x14]
+  1009f0:	83 f8 01             	cmp    eax,0x1
+  1009f3:	74 15                	je     100a0a <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x78>
+  1009f5:	83 f8 01             	cmp    eax,0x1
+  1009f8:	7f 04                	jg     1009fe <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x6c>
+  1009fa:	85 c0                	test   eax,eax
+  1009fc:	eb 1d                	jmp    100a1b <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x89>
+  1009fe:	83 f8 02             	cmp    eax,0x2
+  100a01:	74 0d                	je     100a10 <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x7e>
+  100a03:	83 f8 03             	cmp    eax,0x3
+  100a06:	74 0e                	je     100a16 <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x84>
+  100a08:	eb 11                	jmp    100a1b <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x89>
+  100a0a:	80 4d e7 20          	or     BYTE PTR [ebp-0x19],0x20
+  100a0e:	eb 0b                	jmp    100a1b <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x89>
+  100a10:	80 4d e7 40          	or     BYTE PTR [ebp-0x19],0x40
+  100a14:	eb 05                	jmp    100a1b <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x89>
+  100a16:	80 4d e7 60          	or     BYTE PTR [ebp-0x19],0x60
+  100a1a:	90                   	nop
+  100a1b:	80 4d e7 18          	or     BYTE PTR [ebp-0x19],0x18
+  100a1f:	0f b6 45 c4          	movzx  eax,BYTE PTR [ebp-0x3c]
+  100a23:	84 c0                	test   al,al
+  100a25:	74 07                	je     100a2e <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x9c>
+  100a27:	ba 04 00 00 00       	mov    edx,0x4
+  100a2c:	eb 05                	jmp    100a33 <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0xa1>
+  100a2e:	ba 00 00 00 00       	mov    edx,0x0
+  100a33:	0f b6 45 e7          	movzx  eax,BYTE PTR [ebp-0x19]
+  100a37:	09 d0                	or     eax,edx
+  100a39:	88 45 e7             	mov    BYTE PTR [ebp-0x19],al
+  100a3c:	0f b6 45 c0          	movzx  eax,BYTE PTR [ebp-0x40]
+  100a40:	84 c0                	test   al,al
+  100a42:	74 07                	je     100a4b <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0xb9>
+  100a44:	ba 02 00 00 00       	mov    edx,0x2
+  100a49:	eb 05                	jmp    100a50 <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0xbe>
+  100a4b:	ba 00 00 00 00       	mov    edx,0x0
+  100a50:	0f b6 45 e7          	movzx  eax,BYTE PTR [ebp-0x19]
+  100a54:	09 d0                	or     eax,edx
+  100a56:	88 45 e7             	mov    BYTE PTR [ebp-0x19],al
+  100a59:	0f b6 45 bc          	movzx  eax,BYTE PTR [ebp-0x44]
+  100a5d:	84 c0                	test   al,al
+  100a5f:	74 07                	je     100a68 <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0xd6>
+  100a61:	ba 01 00 00 00       	mov    edx,0x1
+  100a66:	eb 05                	jmp    100a6d <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0xdb>
+  100a68:	ba 00 00 00 00       	mov    edx,0x0
+  100a6d:	0f b6 45 e7          	movzx  eax,BYTE PTR [ebp-0x19]
+  100a71:	09 d0                	or     eax,edx
+  100a73:	88 45 e7             	mov    BYTE PTR [ebp-0x19],al
+  100a76:	0f b6 45 d4          	movzx  eax,BYTE PTR [ebp-0x2c]
+  100a7a:	84 c0                	test   al,al
+  100a7c:	74 07                	je     100a85 <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0xf3>
+  100a7e:	b8 80 ff ff ff       	mov    eax,0xffffff80
+  100a83:	eb 05                	jmp    100a8a <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0xf8>
+  100a85:	b8 00 00 00 00       	mov    eax,0x0
+  100a8a:	88 45 e6             	mov    BYTE PTR [ebp-0x1a],al
+  100a8d:	0f b6 45 d0          	movzx  eax,BYTE PTR [ebp-0x30]
+  100a91:	84 c0                	test   al,al
+  100a93:	74 07                	je     100a9c <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x10a>
+  100a95:	ba 40 00 00 00       	mov    edx,0x40
+  100a9a:	eb 05                	jmp    100aa1 <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x10f>
+  100a9c:	ba 00 00 00 00       	mov    edx,0x0
+  100aa1:	0f b6 45 e6          	movzx  eax,BYTE PTR [ebp-0x1a]
+  100aa5:	09 d0                	or     eax,edx
+  100aa7:	88 45 e6             	mov    BYTE PTR [ebp-0x1a],al
+  100aaa:	0f b6 45 cc          	movzx  eax,BYTE PTR [ebp-0x34]
+  100aae:	84 c0                	test   al,al
+  100ab0:	74 07                	je     100ab9 <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x127>
+  100ab2:	ba 10 00 00 00       	mov    edx,0x10
+  100ab7:	eb 05                	jmp    100abe <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x12c>
+  100ab9:	ba 00 00 00 00       	mov    edx,0x0
+  100abe:	0f b6 45 e6          	movzx  eax,BYTE PTR [ebp-0x1a]
+  100ac2:	09 d0                	or     eax,edx
+  100ac4:	88 45 e6             	mov    BYTE PTR [ebp-0x1a],al
+  100ac7:	0f b6 55 e6          	movzx  edx,BYTE PTR [ebp-0x1a]
+  100acb:	0f b6 45 e7          	movzx  eax,BYTE PTR [ebp-0x19]
+  100acf:	83 ec 0c             	sub    esp,0xc
+  100ad2:	52                   	push   edx
+  100ad3:	50                   	push   eax
+  100ad4:	ff 75 10             	push   DWORD PTR [ebp+0x10]
+  100ad7:	ff 75 0c             	push   DWORD PTR [ebp+0xc]
+  100ada:	ff 75 08             	push   DWORD PTR [ebp+0x8]
+  100add:	e8 a2 f5 ff ff       	call   100084 <_ZN28GlobalDescriptorTableManager16GlobalDescriptorC1Ejjhh>
+  100ae2:	83 c4 20             	add    esp,0x20
+  100ae5:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  100ae8:	8d 65 f4             	lea    esp,[ebp-0xc]
+  100aeb:	5b                   	pop    ebx
+  100aec:	5e                   	pop    esi
+  100aed:	5f                   	pop    edi
+  100aee:	5d                   	pop    ebp
+  100aef:	c2 04 00             	ret    0x4
+
+00100af2 <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb>:
+  100af2:	55                   	push   ebp
+  100af3:	89 e5                	mov    ebp,esp
+  100af5:	57                   	push   edi
+  100af6:	56                   	push   esi
+  100af7:	53                   	push   ebx
+  100af8:	83 ec 3c             	sub    esp,0x3c
+  100afb:	8b 45 18             	mov    eax,DWORD PTR [ebp+0x18]
+  100afe:	8b 4d 1c             	mov    ecx,DWORD PTR [ebp+0x1c]
+  100b01:	89 4d b8             	mov    DWORD PTR [ebp-0x48],ecx
+  100b04:	8b 7d 20             	mov    edi,DWORD PTR [ebp+0x20]
+  100b07:	8b 75 24             	mov    esi,DWORD PTR [ebp+0x24]
+  100b0a:	8b 5d 28             	mov    ebx,DWORD PTR [ebp+0x28]
+  100b0d:	8b 4d 2c             	mov    ecx,DWORD PTR [ebp+0x2c]
+  100b10:	8b 55 30             	mov    edx,DWORD PTR [ebp+0x30]
+  100b13:	88 45 d4             	mov    BYTE PTR [ebp-0x2c],al
+  100b16:	0f b6 45 b8          	movzx  eax,BYTE PTR [ebp-0x48]
+  100b1a:	88 45 d0             	mov    BYTE PTR [ebp-0x30],al
+  100b1d:	89 f8                	mov    eax,edi
+  100b1f:	88 45 cc             	mov    BYTE PTR [ebp-0x34],al
+  100b22:	89 f0                	mov    eax,esi
+  100b24:	88 45 c8             	mov    BYTE PTR [ebp-0x38],al
+  100b27:	89 d8                	mov    eax,ebx
+  100b29:	88 45 c4             	mov    BYTE PTR [ebp-0x3c],al
+  100b2c:	89 c8                	mov    eax,ecx
+  100b2e:	88 45 c0             	mov    BYTE PTR [ebp-0x40],al
+  100b31:	89 d0                	mov    eax,edx
+  100b33:	88 45 bc             	mov    BYTE PTR [ebp-0x44],al
+  100b36:	0f b6 45 c8          	movzx  eax,BYTE PTR [ebp-0x38]
+  100b3a:	84 c0                	test   al,al
+  100b3c:	74 07                	je     100b45 <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x53>
+  100b3e:	b8 80 ff ff ff       	mov    eax,0xffffff80
+  100b43:	eb 05                	jmp    100b4a <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x58>
+  100b45:	b8 00 00 00 00       	mov    eax,0x0
+  100b4a:	88 45 e7             	mov    BYTE PTR [ebp-0x19],al
+  100b4d:	8b 45 14             	mov    eax,DWORD PTR [ebp+0x14]
+  100b50:	83 f8 01             	cmp    eax,0x1
+  100b53:	74 15                	je     100b6a <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x78>
+  100b55:	83 f8 01             	cmp    eax,0x1
+  100b58:	7f 04                	jg     100b5e <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x6c>
+  100b5a:	85 c0                	test   eax,eax
+  100b5c:	eb 1d                	jmp    100b7b <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x89>
+  100b5e:	83 f8 02             	cmp    eax,0x2
+  100b61:	74 0d                	je     100b70 <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x7e>
+  100b63:	83 f8 03             	cmp    eax,0x3
+  100b66:	74 0e                	je     100b76 <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x84>
+  100b68:	eb 11                	jmp    100b7b <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x89>
+  100b6a:	80 4d e7 20          	or     BYTE PTR [ebp-0x19],0x20
+  100b6e:	eb 0b                	jmp    100b7b <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x89>
+  100b70:	80 4d e7 40          	or     BYTE PTR [ebp-0x19],0x40
+  100b74:	eb 05                	jmp    100b7b <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x89>
+  100b76:	80 4d e7 60          	or     BYTE PTR [ebp-0x19],0x60
+  100b7a:	90                   	nop
+  100b7b:	80 4d e7 10          	or     BYTE PTR [ebp-0x19],0x10
+  100b7f:	0f b6 45 c4          	movzx  eax,BYTE PTR [ebp-0x3c]
+  100b83:	84 c0                	test   al,al
+  100b85:	74 07                	je     100b8e <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x9c>
+  100b87:	ba 04 00 00 00       	mov    edx,0x4
+  100b8c:	eb 05                	jmp    100b93 <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0xa1>
+  100b8e:	ba 00 00 00 00       	mov    edx,0x0
+  100b93:	0f b6 45 e7          	movzx  eax,BYTE PTR [ebp-0x19]
+  100b97:	09 d0                	or     eax,edx
+  100b99:	88 45 e7             	mov    BYTE PTR [ebp-0x19],al
+  100b9c:	0f b6 45 c0          	movzx  eax,BYTE PTR [ebp-0x40]
+  100ba0:	84 c0                	test   al,al
+  100ba2:	74 07                	je     100bab <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0xb9>
+  100ba4:	ba 02 00 00 00       	mov    edx,0x2
+  100ba9:	eb 05                	jmp    100bb0 <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0xbe>
+  100bab:	ba 00 00 00 00       	mov    edx,0x0
+  100bb0:	0f b6 45 e7          	movzx  eax,BYTE PTR [ebp-0x19]
+  100bb4:	09 d0                	or     eax,edx
+  100bb6:	88 45 e7             	mov    BYTE PTR [ebp-0x19],al
+  100bb9:	0f b6 45 bc          	movzx  eax,BYTE PTR [ebp-0x44]
+  100bbd:	84 c0                	test   al,al
+  100bbf:	74 07                	je     100bc8 <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0xd6>
+  100bc1:	ba 01 00 00 00       	mov    edx,0x1
+  100bc6:	eb 05                	jmp    100bcd <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0xdb>
+  100bc8:	ba 00 00 00 00       	mov    edx,0x0
+  100bcd:	0f b6 45 e7          	movzx  eax,BYTE PTR [ebp-0x19]
+  100bd1:	09 d0                	or     eax,edx
+  100bd3:	88 45 e7             	mov    BYTE PTR [ebp-0x19],al
+  100bd6:	0f b6 45 d4          	movzx  eax,BYTE PTR [ebp-0x2c]
+  100bda:	84 c0                	test   al,al
+  100bdc:	74 07                	je     100be5 <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0xf3>
+  100bde:	b8 80 ff ff ff       	mov    eax,0xffffff80
+  100be3:	eb 05                	jmp    100bea <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0xf8>
+  100be5:	b8 00 00 00 00       	mov    eax,0x0
+  100bea:	88 45 e6             	mov    BYTE PTR [ebp-0x1a],al
+  100bed:	0f b6 45 d0          	movzx  eax,BYTE PTR [ebp-0x30]
+  100bf1:	84 c0                	test   al,al
+  100bf3:	74 07                	je     100bfc <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x10a>
+  100bf5:	ba 40 00 00 00       	mov    edx,0x40
+  100bfa:	eb 05                	jmp    100c01 <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x10f>
+  100bfc:	ba 00 00 00 00       	mov    edx,0x0
+  100c01:	0f b6 45 e6          	movzx  eax,BYTE PTR [ebp-0x1a]
+  100c05:	09 d0                	or     eax,edx
+  100c07:	88 45 e6             	mov    BYTE PTR [ebp-0x1a],al
+  100c0a:	0f b6 45 cc          	movzx  eax,BYTE PTR [ebp-0x34]
+  100c0e:	84 c0                	test   al,al
+  100c10:	74 07                	je     100c19 <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x127>
+  100c12:	ba 10 00 00 00       	mov    edx,0x10
+  100c17:	eb 05                	jmp    100c1e <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb+0x12c>
+  100c19:	ba 00 00 00 00       	mov    edx,0x0
+  100c1e:	0f b6 45 e6          	movzx  eax,BYTE PTR [ebp-0x1a]
+  100c22:	09 d0                	or     eax,edx
+  100c24:	88 45 e6             	mov    BYTE PTR [ebp-0x1a],al
+  100c27:	0f b6 55 e6          	movzx  edx,BYTE PTR [ebp-0x1a]
+  100c2b:	0f b6 45 e7          	movzx  eax,BYTE PTR [ebp-0x19]
+  100c2f:	83 ec 0c             	sub    esp,0xc
+  100c32:	52                   	push   edx
+  100c33:	50                   	push   eax
+  100c34:	ff 75 10             	push   DWORD PTR [ebp+0x10]
+  100c37:	ff 75 0c             	push   DWORD PTR [ebp+0xc]
+  100c3a:	ff 75 08             	push   DWORD PTR [ebp+0x8]
+  100c3d:	e8 42 f4 ff ff       	call   100084 <_ZN28GlobalDescriptorTableManager16GlobalDescriptorC1Ejjhh>
+  100c42:	83 c4 20             	add    esp,0x20
+  100c45:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  100c48:	8d 65 f4             	lea    esp,[ebp-0xc]
+  100c4b:	5b                   	pop    ebx
+  100c4c:	5e                   	pop    esi
+  100c4d:	5f                   	pop    edi
+  100c4e:	5d                   	pop    ebp
+  100c4f:	c2 04 00             	ret    0x4
+
+00100c52 <_ZN28GlobalDescriptorTableManager10InitializeEv>:
+  100c52:	55                   	push   ebp
+  100c53:	89 e5                	mov    ebp,esp
+  100c55:	83 ec 38             	sub    esp,0x38
+  100c58:	8d 45 d0             	lea    eax,[ebp-0x30]
+  100c5b:	83 ec 04             	sub    esp,0x4
+  100c5e:	6a 00                	push   0x0
+  100c60:	6a 00                	push   0x0
+  100c62:	6a 00                	push   0x0
+  100c64:	6a 00                	push   0x0
+  100c66:	6a 00                	push   0x0
+  100c68:	6a 00                	push   0x0
+  100c6a:	50                   	push   eax
+  100c6b:	e8 1f fc ff ff       	call   10088f <_ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE>
+  100c70:	83 c4 1c             	add    esp,0x1c
+  100c73:	83 ec 0c             	sub    esp,0xc
+  100c76:	8d 45 d0             	lea    eax,[ebp-0x30]
+  100c79:	50                   	push   eax
+  100c7a:	e8 ff 00 00 00       	call   100d7e <_ZN28GlobalDescriptorTableManager18registerDescriptorENS_16GlobalDescriptorE>
+  100c7f:	83 c4 10             	add    esp,0x10
+  100c82:	8d 45 d8             	lea    eax,[ebp-0x28]
+  100c85:	83 ec 04             	sub    esp,0x4
+  100c88:	6a 00                	push   0x0
+  100c8a:	6a 01                	push   0x1
+  100c8c:	6a 00                	push   0x0
+  100c8e:	6a 01                	push   0x1
+  100c90:	6a 00                	push   0x0
+  100c92:	6a 01                	push   0x1
+  100c94:	6a 01                	push   0x1
+  100c96:	6a 00                	push   0x0
+  100c98:	68 ff ff 0f 00       	push   0xfffff
+  100c9d:	6a 00                	push   0x0
+  100c9f:	50                   	push   eax
+  100ca0:	e8 ed fc ff ff       	call   100992 <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb>
+  100ca5:	83 c4 2c             	add    esp,0x2c
+  100ca8:	83 ec 0c             	sub    esp,0xc
+  100cab:	8d 45 d8             	lea    eax,[ebp-0x28]
+  100cae:	50                   	push   eax
+  100caf:	e8 ca 00 00 00       	call   100d7e <_ZN28GlobalDescriptorTableManager18registerDescriptorENS_16GlobalDescriptorE>
+  100cb4:	83 c4 10             	add    esp,0x10
+  100cb7:	8d 45 e0             	lea    eax,[ebp-0x20]
+  100cba:	83 ec 04             	sub    esp,0x4
+  100cbd:	6a 00                	push   0x0
+  100cbf:	6a 01                	push   0x1
+  100cc1:	6a 00                	push   0x0
+  100cc3:	6a 01                	push   0x1
+  100cc5:	6a 00                	push   0x0
+  100cc7:	6a 01                	push   0x1
+  100cc9:	6a 01                	push   0x1
+  100ccb:	6a 00                	push   0x0
+  100ccd:	68 ff ff 0f 00       	push   0xfffff
+  100cd2:	6a 00                	push   0x0
+  100cd4:	50                   	push   eax
+  100cd5:	e8 18 fe ff ff       	call   100af2 <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb>
+  100cda:	83 c4 2c             	add    esp,0x2c
+  100cdd:	83 ec 0c             	sub    esp,0xc
+  100ce0:	8d 45 e0             	lea    eax,[ebp-0x20]
+  100ce3:	50                   	push   eax
+  100ce4:	e8 95 00 00 00       	call   100d7e <_ZN28GlobalDescriptorTableManager18registerDescriptorENS_16GlobalDescriptorE>
+  100ce9:	83 c4 10             	add    esp,0x10
+  100cec:	8d 45 e8             	lea    eax,[ebp-0x18]
+  100cef:	83 ec 04             	sub    esp,0x4
+  100cf2:	6a 00                	push   0x0
+  100cf4:	6a 01                	push   0x1
+  100cf6:	6a 00                	push   0x0
+  100cf8:	6a 01                	push   0x1
+  100cfa:	6a 00                	push   0x0
+  100cfc:	6a 01                	push   0x1
+  100cfe:	6a 01                	push   0x1
+  100d00:	6a 03                	push   0x3
+  100d02:	68 ff ff 0f 00       	push   0xfffff
+  100d07:	6a 00                	push   0x0
+  100d09:	50                   	push   eax
+  100d0a:	e8 83 fc ff ff       	call   100992 <_ZN28GlobalDescriptorTableManager15makeCodeSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb>
+  100d0f:	83 c4 2c             	add    esp,0x2c
+  100d12:	83 ec 0c             	sub    esp,0xc
+  100d15:	8d 45 e8             	lea    eax,[ebp-0x18]
+  100d18:	50                   	push   eax
+  100d19:	e8 60 00 00 00       	call   100d7e <_ZN28GlobalDescriptorTableManager18registerDescriptorENS_16GlobalDescriptorE>
+  100d1e:	83 c4 10             	add    esp,0x10
+  100d21:	8d 45 f0             	lea    eax,[ebp-0x10]
+  100d24:	83 ec 04             	sub    esp,0x4
+  100d27:	6a 00                	push   0x0
+  100d29:	6a 01                	push   0x1
+  100d2b:	6a 00                	push   0x0
+  100d2d:	6a 01                	push   0x1
+  100d2f:	6a 00                	push   0x0
+  100d31:	6a 01                	push   0x1
+  100d33:	6a 01                	push   0x1
+  100d35:	6a 03                	push   0x3
+  100d37:	68 ff ff 0f 00       	push   0xfffff
+  100d3c:	6a 00                	push   0x0
+  100d3e:	50                   	push   eax
+  100d3f:	e8 ae fd ff ff       	call   100af2 <_ZN28GlobalDescriptorTableManager15makeDataSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbbbbbb>
+  100d44:	83 c4 2c             	add    esp,0x2c
+  100d47:	83 ec 0c             	sub    esp,0xc
+  100d4a:	8d 45 f0             	lea    eax,[ebp-0x10]
+  100d4d:	50                   	push   eax
+  100d4e:	e8 2b 00 00 00       	call   100d7e <_ZN28GlobalDescriptorTableManager18registerDescriptorENS_16GlobalDescriptorE>
+  100d53:	83 c4 10             	add    esp,0x10
+  100d56:	90                   	nop
+  100d57:	c9                   	leave  
+  100d58:	c3                   	ret    
+
+00100d59 <_ZN28GlobalDescriptorTableManager8ActivateEv>:
+  100d59:	55                   	push   ebp
+  100d5a:	89 e5                	mov    ebp,esp
+  100d5c:	83 ec 10             	sub    esp,0x10
+  100d5f:	b8 c0 58 10 00       	mov    eax,0x1058c0
+  100d64:	89 45 fc             	mov    DWORD PTR [ebp-0x4],eax
+  100d67:	a1 60 59 10 00       	mov    eax,ds:0x105960
+  100d6c:	c1 e0 10             	shl    eax,0x10
+  100d6f:	89 45 f8             	mov    DWORD PTR [ebp-0x8],eax
+  100d72:	8d 45 f8             	lea    eax,[ebp-0x8]
+  100d75:	83 c0 02             	add    eax,0x2
+  100d78:	0f 01 10             	lgdtd  [eax]
+  100d7b:	90                   	nop
+  100d7c:	c9                   	leave  
+  100d7d:	c3                   	ret    
+
+00100d7e <_ZN28GlobalDescriptorTableManager18registerDescriptorENS_16GlobalDescriptorE>:
+  100d7e:	55                   	push   ebp
+  100d7f:	89 e5                	mov    ebp,esp
+  100d81:	83 ec 08             	sub    esp,0x8
+  100d84:	a1 60 59 10 00       	mov    eax,ds:0x105960
+  100d89:	8d 50 01             	lea    edx,[eax+0x1]
+  100d8c:	89 15 60 59 10 00    	mov    DWORD PTR ds:0x105960,edx
+  100d92:	c1 e0 03             	shl    eax,0x3
+  100d95:	05 c0 58 10 00       	add    eax,0x1058c0
+  100d9a:	83 ec 08             	sub    esp,0x8
+  100d9d:	ff 75 08             	push   DWORD PTR [ebp+0x8]
+  100da0:	50                   	push   eax
+  100da1:	e8 26 fa ff ff       	call   1007cc <_ZN28GlobalDescriptorTableManager16GlobalDescriptoraSERKS0_>
+  100da6:	83 c4 10             	add    esp,0x10
+  100da9:	90                   	nop
+  100daa:	c9                   	leave  
+  100dab:	c3                   	ret    
+
+00100dac <_ZN28GlobalDescriptorTableManager19CodeSegmentSelectorEv>:
+  100dac:	55                   	push   ebp
+  100dad:	89 e5                	mov    ebp,esp
+  100daf:	b8 01 00 00 00       	mov    eax,0x1
+  100db4:	5d                   	pop    ebp
+  100db5:	c3                   	ret    
+
+00100db6 <_ZN4PortIhLb1EE5writeEh>:
+  100db6:	55                   	push   ebp
+  100db7:	89 e5                	mov    ebp,esp
+  100db9:	83 ec 04             	sub    esp,0x4
+  100dbc:	8b 45 0c             	mov    eax,DWORD PTR [ebp+0xc]
+  100dbf:	88 45 fc             	mov    BYTE PTR [ebp-0x4],al
+  100dc2:	8b 45 08             	mov    eax,DWORD PTR [ebp+0x8]
+  100dc5:	0f b7 50 02          	movzx  edx,WORD PTR [eax+0x2]
+  100dc9:	0f b6 45 fc          	movzx  eax,BYTE PTR [ebp-0x4]
+  100dcd:	ee                   	out    dx,al
+  100dce:	eb 00                	jmp    100dd0 <_ZN4PortIhLb1EE5writeEh+0x1a>
+  100dd0:	eb 00                	jmp    100dd2 <_ZN4PortIhLb1EE5writeEh+0x1c>
+  100dd2:	90                   	nop
+  100dd3:	c9                   	leave  
+  100dd4:	c3                   	ret    
+
+00100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>:
+  100dd5:	55                   	push   ebp
+  100dd6:	89 e5                	mov    ebp,esp
+  100dd8:	53                   	push   ebx
+  100dd9:	83 ec 20             	sub    esp,0x20
+  100ddc:	8b 5d 08             	mov    ebx,DWORD PTR [ebp+0x8]
+  100ddf:	8b 4d 0c             	mov    ecx,DWORD PTR [ebp+0xc]
+  100de2:	8b 55 14             	mov    edx,DWORD PTR [ebp+0x14]
+  100de5:	8b 45 18             	mov    eax,DWORD PTR [ebp+0x18]
+  100de8:	88 5d e8             	mov    BYTE PTR [ebp-0x18],bl
+  100deb:	66 89 4d e4          	mov    WORD PTR [ebp-0x1c],cx
+  100def:	88 55 e0             	mov    BYTE PTR [ebp-0x20],dl
+  100df2:	88 45 dc             	mov    BYTE PTR [ebp-0x24],al
+  100df5:	0f b6 45 e8          	movzx  eax,BYTE PTR [ebp-0x18]
+  100df9:	c1 e0 03             	shl    eax,0x3
+  100dfc:	05 a0 5d 10 00       	add    eax,0x105da0
+  100e01:	89 45 f8             	mov    DWORD PTR [ebp-0x8],eax
+  100e04:	8b 45 10             	mov    eax,DWORD PTR [ebp+0x10]
+  100e07:	89 c2                	mov    edx,eax
+  100e09:	8b 45 f8             	mov    eax,DWORD PTR [ebp-0x8]
+  100e0c:	66 89 10             	mov    WORD PTR [eax],dx
+  100e0f:	8b 45 10             	mov    eax,DWORD PTR [ebp+0x10]
+  100e12:	c1 e8 10             	shr    eax,0x10
+  100e15:	89 c2                	mov    edx,eax
+  100e17:	8b 45 f8             	mov    eax,DWORD PTR [ebp-0x8]
+  100e1a:	66 89 50 06          	mov    WORD PTR [eax+0x6],dx
+  100e1e:	8b 45 f8             	mov    eax,DWORD PTR [ebp-0x8]
+  100e21:	0f b7 55 e4          	movzx  edx,WORD PTR [ebp-0x1c]
+  100e25:	66 89 50 02          	mov    WORD PTR [eax+0x2],dx
+  100e29:	c6 45 f7 80          	mov    BYTE PTR [ebp-0x9],0x80
+  100e2d:	0f b6 45 e0          	movzx  eax,BYTE PTR [ebp-0x20]
+  100e31:	c1 e0 05             	shl    eax,0x5
+  100e34:	83 e0 60             	and    eax,0x60
+  100e37:	0a 45 dc             	or     al,BYTE PTR [ebp-0x24]
+  100e3a:	83 c8 80             	or     eax,0xffffff80
+  100e3d:	89 c2                	mov    edx,eax
+  100e3f:	8b 45 f8             	mov    eax,DWORD PTR [ebp-0x8]
+  100e42:	88 50 05             	mov    BYTE PTR [eax+0x5],dl
+  100e45:	8b 45 f8             	mov    eax,DWORD PTR [ebp-0x8]
+  100e48:	c6 40 04 00          	mov    BYTE PTR [eax+0x4],0x0
+  100e4c:	90                   	nop
+  100e4d:	83 c4 20             	add    esp,0x20
+  100e50:	5b                   	pop    ebx
+  100e51:	5d                   	pop    ebp
+  100e52:	c3                   	ret    
+
+00100e53 <_ZN23InterruptServiceRoutine8ActivateEv>:
+  100e53:	55                   	push   ebp
+  100e54:	89 e5                	mov    ebp,esp
+  100e56:	c6 05 80 5d 10 00 01 	mov    BYTE PTR ds:0x105d80,0x1
+  100e5d:	fb                   	sti    
+  100e5e:	90                   	nop
+  100e5f:	5d                   	pop    ebp
+  100e60:	c3                   	ret    
+
+00100e61 <_ZN23InterruptServiceRoutine10InitializeEv>:
+  100e61:	55                   	push   ebp
+  100e62:	89 e5                	mov    ebp,esp
+  100e64:	83 ec 18             	sub    esp,0x18
+  100e67:	e8 40 ff ff ff       	call   100dac <_ZN28GlobalDescriptorTableManager19CodeSegmentSelectorEv>
+  100e6c:	66 89 45 f4          	mov    WORD PTR [ebp-0xc],ax
+  100e70:	c6 45 f3 0e          	mov    BYTE PTR [ebp-0xd],0xe
+  100e74:	c6 45 f7 ff          	mov    BYTE PTR [ebp-0x9],0xff
+  100e78:	80 7d f7 00          	cmp    BYTE PTR [ebp-0x9],0x0
+  100e7c:	74 33                	je     100eb1 <_ZN23InterruptServiceRoutine10InitializeEv+0x50>
+  100e7e:	0f b7 55 f4          	movzx  edx,WORD PTR [ebp-0xc]
+  100e82:	0f b6 45 f7          	movzx  eax,BYTE PTR [ebp-0x9]
+  100e86:	83 ec 0c             	sub    esp,0xc
+  100e89:	6a 0e                	push   0xe
+  100e8b:	6a 00                	push   0x0
+  100e8d:	68 fb 04 10 00       	push   0x1004fb
+  100e92:	52                   	push   edx
+  100e93:	50                   	push   eax
+  100e94:	e8 3c ff ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  100e99:	83 c4 20             	add    esp,0x20
+  100e9c:	0f b6 45 f7          	movzx  eax,BYTE PTR [ebp-0x9]
+  100ea0:	c7 04 85 80 59 10 00 	mov    DWORD PTR [eax*4+0x105980],0x0
+  100ea7:	00 00 00 00 
+  100eab:	80 6d f7 01          	sub    BYTE PTR [ebp-0x9],0x1
+  100eaf:	eb c7                	jmp    100e78 <_ZN23InterruptServiceRoutine10InitializeEv+0x17>
+  100eb1:	c7 05 80 59 10 00 00 	mov    DWORD PTR ds:0x105980,0x0
+  100eb8:	00 00 00 
+  100ebb:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  100ebf:	83 ec 0c             	sub    esp,0xc
+  100ec2:	6a 0e                	push   0xe
+  100ec4:	6a 00                	push   0x0
+  100ec6:	68 14 03 10 00       	push   0x100314
+  100ecb:	50                   	push   eax
+  100ecc:	6a 00                	push   0x0
+  100ece:	e8 02 ff ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  100ed3:	83 c4 20             	add    esp,0x20
+  100ed6:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  100eda:	83 ec 0c             	sub    esp,0xc
+  100edd:	6a 0e                	push   0xe
+  100edf:	6a 00                	push   0x0
+  100ee1:	68 20 03 10 00       	push   0x100320
+  100ee6:	50                   	push   eax
+  100ee7:	6a 01                	push   0x1
+  100ee9:	e8 e7 fe ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  100eee:	83 c4 20             	add    esp,0x20
+  100ef1:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  100ef5:	83 ec 0c             	sub    esp,0xc
+  100ef8:	6a 0e                	push   0xe
+  100efa:	6a 00                	push   0x0
+  100efc:	68 2c 03 10 00       	push   0x10032c
+  100f01:	50                   	push   eax
+  100f02:	6a 02                	push   0x2
+  100f04:	e8 cc fe ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  100f09:	83 c4 20             	add    esp,0x20
+  100f0c:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  100f10:	83 ec 0c             	sub    esp,0xc
+  100f13:	6a 0e                	push   0xe
+  100f15:	6a 00                	push   0x0
+  100f17:	68 38 03 10 00       	push   0x100338
+  100f1c:	50                   	push   eax
+  100f1d:	6a 03                	push   0x3
+  100f1f:	e8 b1 fe ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  100f24:	83 c4 20             	add    esp,0x20
+  100f27:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  100f2b:	83 ec 0c             	sub    esp,0xc
+  100f2e:	6a 0e                	push   0xe
+  100f30:	6a 00                	push   0x0
+  100f32:	68 44 03 10 00       	push   0x100344
+  100f37:	50                   	push   eax
+  100f38:	6a 04                	push   0x4
+  100f3a:	e8 96 fe ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  100f3f:	83 c4 20             	add    esp,0x20
+  100f42:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  100f46:	83 ec 0c             	sub    esp,0xc
+  100f49:	6a 0e                	push   0xe
+  100f4b:	6a 00                	push   0x0
+  100f4d:	68 50 03 10 00       	push   0x100350
+  100f52:	50                   	push   eax
+  100f53:	6a 05                	push   0x5
+  100f55:	e8 7b fe ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  100f5a:	83 c4 20             	add    esp,0x20
+  100f5d:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  100f61:	83 ec 0c             	sub    esp,0xc
+  100f64:	6a 0e                	push   0xe
+  100f66:	6a 00                	push   0x0
+  100f68:	68 5c 03 10 00       	push   0x10035c
+  100f6d:	50                   	push   eax
+  100f6e:	6a 06                	push   0x6
+  100f70:	e8 60 fe ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  100f75:	83 c4 20             	add    esp,0x20
+  100f78:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  100f7c:	83 ec 0c             	sub    esp,0xc
+  100f7f:	6a 0e                	push   0xe
+  100f81:	6a 00                	push   0x0
+  100f83:	68 68 03 10 00       	push   0x100368
+  100f88:	50                   	push   eax
+  100f89:	6a 07                	push   0x7
+  100f8b:	e8 45 fe ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  100f90:	83 c4 20             	add    esp,0x20
+  100f93:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  100f97:	83 ec 0c             	sub    esp,0xc
+  100f9a:	6a 0e                	push   0xe
+  100f9c:	6a 00                	push   0x0
+  100f9e:	68 74 03 10 00       	push   0x100374
+  100fa3:	50                   	push   eax
+  100fa4:	6a 08                	push   0x8
+  100fa6:	e8 2a fe ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  100fab:	83 c4 20             	add    esp,0x20
+  100fae:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  100fb2:	83 ec 0c             	sub    esp,0xc
+  100fb5:	6a 0e                	push   0xe
+  100fb7:	6a 00                	push   0x0
+  100fb9:	68 80 03 10 00       	push   0x100380
+  100fbe:	50                   	push   eax
+  100fbf:	6a 09                	push   0x9
+  100fc1:	e8 0f fe ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  100fc6:	83 c4 20             	add    esp,0x20
+  100fc9:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  100fcd:	83 ec 0c             	sub    esp,0xc
+  100fd0:	6a 0e                	push   0xe
+  100fd2:	6a 00                	push   0x0
+  100fd4:	68 8c 03 10 00       	push   0x10038c
+  100fd9:	50                   	push   eax
+  100fda:	6a 0a                	push   0xa
+  100fdc:	e8 f4 fd ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  100fe1:	83 c4 20             	add    esp,0x20
+  100fe4:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  100fe8:	83 ec 0c             	sub    esp,0xc
+  100feb:	6a 0e                	push   0xe
+  100fed:	6a 00                	push   0x0
+  100fef:	68 98 03 10 00       	push   0x100398
+  100ff4:	50                   	push   eax
+  100ff5:	6a 0b                	push   0xb
+  100ff7:	e8 d9 fd ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  100ffc:	83 c4 20             	add    esp,0x20
+  100fff:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  101003:	83 ec 0c             	sub    esp,0xc
+  101006:	6a 0e                	push   0xe
+  101008:	6a 00                	push   0x0
+  10100a:	68 a4 03 10 00       	push   0x1003a4
+  10100f:	50                   	push   eax
+  101010:	6a 0c                	push   0xc
+  101012:	e8 be fd ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  101017:	83 c4 20             	add    esp,0x20
+  10101a:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  10101e:	83 ec 0c             	sub    esp,0xc
+  101021:	6a 0e                	push   0xe
+  101023:	6a 00                	push   0x0
+  101025:	68 b0 03 10 00       	push   0x1003b0
+  10102a:	50                   	push   eax
+  10102b:	6a 0d                	push   0xd
+  10102d:	e8 a3 fd ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  101032:	83 c4 20             	add    esp,0x20
+  101035:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  101039:	83 ec 0c             	sub    esp,0xc
+  10103c:	6a 0e                	push   0xe
+  10103e:	6a 00                	push   0x0
+  101040:	68 bc 03 10 00       	push   0x1003bc
+  101045:	50                   	push   eax
+  101046:	6a 0e                	push   0xe
+  101048:	e8 88 fd ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  10104d:	83 c4 20             	add    esp,0x20
+  101050:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  101054:	83 ec 0c             	sub    esp,0xc
+  101057:	6a 0e                	push   0xe
+  101059:	6a 00                	push   0x0
+  10105b:	68 c8 03 10 00       	push   0x1003c8
+  101060:	50                   	push   eax
+  101061:	6a 0f                	push   0xf
+  101063:	e8 6d fd ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  101068:	83 c4 20             	add    esp,0x20
+  10106b:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  10106f:	83 ec 0c             	sub    esp,0xc
+  101072:	6a 0e                	push   0xe
+  101074:	6a 00                	push   0x0
+  101076:	68 d4 03 10 00       	push   0x1003d4
+  10107b:	50                   	push   eax
+  10107c:	6a 10                	push   0x10
+  10107e:	e8 52 fd ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  101083:	83 c4 20             	add    esp,0x20
+  101086:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  10108a:	83 ec 0c             	sub    esp,0xc
+  10108d:	6a 0e                	push   0xe
+  10108f:	6a 00                	push   0x0
+  101091:	68 e0 03 10 00       	push   0x1003e0
+  101096:	50                   	push   eax
+  101097:	6a 11                	push   0x11
+  101099:	e8 37 fd ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  10109e:	83 c4 20             	add    esp,0x20
+  1010a1:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  1010a5:	83 ec 0c             	sub    esp,0xc
+  1010a8:	6a 0e                	push   0xe
+  1010aa:	6a 00                	push   0x0
+  1010ac:	68 ec 03 10 00       	push   0x1003ec
+  1010b1:	50                   	push   eax
+  1010b2:	6a 12                	push   0x12
+  1010b4:	e8 1c fd ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  1010b9:	83 c4 20             	add    esp,0x20
+  1010bc:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  1010c0:	83 ec 0c             	sub    esp,0xc
+  1010c3:	6a 0e                	push   0xe
+  1010c5:	6a 00                	push   0x0
+  1010c7:	68 f8 03 10 00       	push   0x1003f8
+  1010cc:	50                   	push   eax
+  1010cd:	6a 13                	push   0x13
+  1010cf:	e8 01 fd ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  1010d4:	83 c4 20             	add    esp,0x20
+  1010d7:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  1010db:	83 ec 0c             	sub    esp,0xc
+  1010de:	6a 0e                	push   0xe
+  1010e0:	6a 00                	push   0x0
+  1010e2:	68 04 04 10 00       	push   0x100404
+  1010e7:	50                   	push   eax
+  1010e8:	6a 20                	push   0x20
+  1010ea:	e8 e6 fc ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  1010ef:	83 c4 20             	add    esp,0x20
+  1010f2:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  1010f6:	83 ec 0c             	sub    esp,0xc
+  1010f9:	6a 0e                	push   0xe
+  1010fb:	6a 00                	push   0x0
+  1010fd:	68 12 04 10 00       	push   0x100412
+  101102:	50                   	push   eax
+  101103:	6a 21                	push   0x21
+  101105:	e8 cb fc ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  10110a:	83 c4 20             	add    esp,0x20
+  10110d:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  101111:	83 ec 0c             	sub    esp,0xc
+  101114:	6a 0e                	push   0xe
+  101116:	6a 00                	push   0x0
+  101118:	68 20 04 10 00       	push   0x100420
+  10111d:	50                   	push   eax
+  10111e:	6a 22                	push   0x22
+  101120:	e8 b0 fc ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  101125:	83 c4 20             	add    esp,0x20
+  101128:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  10112c:	83 ec 0c             	sub    esp,0xc
+  10112f:	6a 0e                	push   0xe
+  101131:	6a 00                	push   0x0
+  101133:	68 2e 04 10 00       	push   0x10042e
+  101138:	50                   	push   eax
+  101139:	6a 23                	push   0x23
+  10113b:	e8 95 fc ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  101140:	83 c4 20             	add    esp,0x20
+  101143:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  101147:	83 ec 0c             	sub    esp,0xc
+  10114a:	6a 0e                	push   0xe
+  10114c:	6a 00                	push   0x0
+  10114e:	68 3c 04 10 00       	push   0x10043c
+  101153:	50                   	push   eax
+  101154:	6a 24                	push   0x24
+  101156:	e8 7a fc ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  10115b:	83 c4 20             	add    esp,0x20
+  10115e:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  101162:	83 ec 0c             	sub    esp,0xc
+  101165:	6a 0e                	push   0xe
+  101167:	6a 00                	push   0x0
+  101169:	68 4a 04 10 00       	push   0x10044a
+  10116e:	50                   	push   eax
+  10116f:	6a 25                	push   0x25
+  101171:	e8 5f fc ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  101176:	83 c4 20             	add    esp,0x20
+  101179:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  10117d:	83 ec 0c             	sub    esp,0xc
+  101180:	6a 0e                	push   0xe
+  101182:	6a 00                	push   0x0
+  101184:	68 58 04 10 00       	push   0x100458
+  101189:	50                   	push   eax
+  10118a:	6a 26                	push   0x26
+  10118c:	e8 44 fc ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  101191:	83 c4 20             	add    esp,0x20
+  101194:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  101198:	83 ec 0c             	sub    esp,0xc
+  10119b:	6a 0e                	push   0xe
+  10119d:	6a 00                	push   0x0
+  10119f:	68 63 04 10 00       	push   0x100463
+  1011a4:	50                   	push   eax
+  1011a5:	6a 27                	push   0x27
+  1011a7:	e8 29 fc ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  1011ac:	83 c4 20             	add    esp,0x20
+  1011af:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  1011b3:	83 ec 0c             	sub    esp,0xc
+  1011b6:	6a 0e                	push   0xe
+  1011b8:	6a 00                	push   0x0
+  1011ba:	68 6e 04 10 00       	push   0x10046e
+  1011bf:	50                   	push   eax
+  1011c0:	6a 28                	push   0x28
+  1011c2:	e8 0e fc ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  1011c7:	83 c4 20             	add    esp,0x20
+  1011ca:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  1011ce:	83 ec 0c             	sub    esp,0xc
+  1011d1:	6a 0e                	push   0xe
+  1011d3:	6a 00                	push   0x0
+  1011d5:	68 79 04 10 00       	push   0x100479
+  1011da:	50                   	push   eax
+  1011db:	6a 29                	push   0x29
+  1011dd:	e8 f3 fb ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  1011e2:	83 c4 20             	add    esp,0x20
+  1011e5:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  1011e9:	83 ec 0c             	sub    esp,0xc
+  1011ec:	6a 0e                	push   0xe
+  1011ee:	6a 00                	push   0x0
+  1011f0:	68 84 04 10 00       	push   0x100484
+  1011f5:	50                   	push   eax
+  1011f6:	6a 2a                	push   0x2a
+  1011f8:	e8 d8 fb ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  1011fd:	83 c4 20             	add    esp,0x20
+  101200:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  101204:	83 ec 0c             	sub    esp,0xc
+  101207:	6a 0e                	push   0xe
+  101209:	6a 00                	push   0x0
+  10120b:	68 8f 04 10 00       	push   0x10048f
+  101210:	50                   	push   eax
+  101211:	6a 2b                	push   0x2b
+  101213:	e8 bd fb ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  101218:	83 c4 20             	add    esp,0x20
+  10121b:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  10121f:	83 ec 0c             	sub    esp,0xc
+  101222:	6a 0e                	push   0xe
+  101224:	6a 00                	push   0x0
+  101226:	68 9a 04 10 00       	push   0x10049a
+  10122b:	50                   	push   eax
+  10122c:	6a 2c                	push   0x2c
+  10122e:	e8 a2 fb ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  101233:	83 c4 20             	add    esp,0x20
+  101236:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  10123a:	83 ec 0c             	sub    esp,0xc
+  10123d:	6a 0e                	push   0xe
+  10123f:	6a 00                	push   0x0
+  101241:	68 a5 04 10 00       	push   0x1004a5
+  101246:	50                   	push   eax
+  101247:	6a 2d                	push   0x2d
+  101249:	e8 87 fb ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  10124e:	83 c4 20             	add    esp,0x20
+  101251:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  101255:	83 ec 0c             	sub    esp,0xc
+  101258:	6a 0e                	push   0xe
+  10125a:	6a 00                	push   0x0
+  10125c:	68 b0 04 10 00       	push   0x1004b0
+  101261:	50                   	push   eax
+  101262:	6a 2e                	push   0x2e
+  101264:	e8 6c fb ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  101269:	83 c4 20             	add    esp,0x20
+  10126c:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  101270:	83 ec 0c             	sub    esp,0xc
+  101273:	6a 0e                	push   0xe
+  101275:	6a 00                	push   0x0
+  101277:	68 bb 04 10 00       	push   0x1004bb
+  10127c:	50                   	push   eax
+  10127d:	6a 2f                	push   0x2f
+  10127f:	e8 51 fb ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  101284:	83 c4 20             	add    esp,0x20
+  101287:	0f b7 45 f4          	movzx  eax,WORD PTR [ebp-0xc]
+  10128b:	83 ec 0c             	sub    esp,0xc
+  10128e:	6a 0e                	push   0xe
+  101290:	6a 00                	push   0x0
+  101292:	68 d1 04 10 00       	push   0x1004d1
+  101297:	50                   	push   eax
+  101298:	68 80 00 00 00       	push   0x80
+  10129d:	e8 33 fb ff ff       	call   100dd5 <_ZN23InterruptServiceRoutine17registerInterruptEhtPFvvEhh>
+  1012a2:	83 c4 20             	add    esp,0x20
+  1012a5:	83 ec 08             	sub    esp,0x8
+  1012a8:	6a 11                	push   0x11
+  1012aa:	68 a0 65 10 00       	push   0x1065a0
+  1012af:	e8 02 fb ff ff       	call   100db6 <_ZN4PortIhLb1EE5writeEh>
+  1012b4:	83 c4 10             	add    esp,0x10
+  1012b7:	83 ec 08             	sub    esp,0x8
+  1012ba:	6a 11                	push   0x11
+  1012bc:	68 a8 65 10 00       	push   0x1065a8
+  1012c1:	e8 f0 fa ff ff       	call   100db6 <_ZN4PortIhLb1EE5writeEh>
+  1012c6:	83 c4 10             	add    esp,0x10
+  1012c9:	83 ec 08             	sub    esp,0x8
+  1012cc:	6a 20                	push   0x20
+  1012ce:	68 a4 65 10 00       	push   0x1065a4
+  1012d3:	e8 de fa ff ff       	call   100db6 <_ZN4PortIhLb1EE5writeEh>
+  1012d8:	83 c4 10             	add    esp,0x10
+  1012db:	83 ec 08             	sub    esp,0x8
+  1012de:	6a 28                	push   0x28
+  1012e0:	68 ac 65 10 00       	push   0x1065ac
+  1012e5:	e8 cc fa ff ff       	call   100db6 <_ZN4PortIhLb1EE5writeEh>
+  1012ea:	83 c4 10             	add    esp,0x10
+  1012ed:	83 ec 08             	sub    esp,0x8
+  1012f0:	6a 04                	push   0x4
+  1012f2:	68 a4 65 10 00       	push   0x1065a4
+  1012f7:	e8 ba fa ff ff       	call   100db6 <_ZN4PortIhLb1EE5writeEh>
+  1012fc:	83 c4 10             	add    esp,0x10
+  1012ff:	83 ec 08             	sub    esp,0x8
+  101302:	6a 02                	push   0x2
+  101304:	68 ac 65 10 00       	push   0x1065ac
+  101309:	e8 a8 fa ff ff       	call   100db6 <_ZN4PortIhLb1EE5writeEh>
+  10130e:	83 c4 10             	add    esp,0x10
+  101311:	83 ec 08             	sub    esp,0x8
+  101314:	6a 01                	push   0x1
+  101316:	68 a4 65 10 00       	push   0x1065a4
+  10131b:	e8 96 fa ff ff       	call   100db6 <_ZN4PortIhLb1EE5writeEh>
+  101320:	83 c4 10             	add    esp,0x10
+  101323:	83 ec 08             	sub    esp,0x8
+  101326:	6a 01                	push   0x1
+  101328:	68 ac 65 10 00       	push   0x1065ac
+  10132d:	e8 84 fa ff ff       	call   100db6 <_ZN4PortIhLb1EE5writeEh>
+  101332:	83 c4 10             	add    esp,0x10
+  101335:	83 ec 08             	sub    esp,0x8
+  101338:	6a 00                	push   0x0
+  10133a:	68 a4 65 10 00       	push   0x1065a4
+  10133f:	e8 72 fa ff ff       	call   100db6 <_ZN4PortIhLb1EE5writeEh>
+  101344:	83 c4 10             	add    esp,0x10
+  101347:	83 ec 08             	sub    esp,0x8
+  10134a:	6a 00                	push   0x0
+  10134c:	68 ac 65 10 00       	push   0x1065ac
+  101351:	e8 60 fa ff ff       	call   100db6 <_ZN4PortIhLb1EE5writeEh>
+  101356:	83 c4 10             	add    esp,0x10
+  101359:	66 c7 45 ed ff 07    	mov    WORD PTR [ebp-0x13],0x7ff
+  10135f:	b8 a0 5d 10 00       	mov    eax,0x105da0
+  101364:	89 45 ef             	mov    DWORD PTR [ebp-0x11],eax
+  101367:	0f 01 5d ed          	lidtd  [ebp-0x13]
+  10136b:	90                   	nop
+  10136c:	c9                   	leave  
+  10136d:	c3                   	ret    
+
+0010136e <_ZN7Service10initializeEv>:
+  10136e:	55                   	push   ebp
+  10136f:	89 e5                	mov    ebp,esp
+  101371:	83 ec 08             	sub    esp,0x8
+  101374:	e8 d9 f8 ff ff       	call   100c52 <_ZN28GlobalDescriptorTableManager10InitializeEv>
+  101379:	e8 e3 fa ff ff       	call   100e61 <_ZN23InterruptServiceRoutine10InitializeEv>
+  10137e:	90                   	nop
+  10137f:	c9                   	leave  
+  101380:	c3                   	ret    
+
+00101381 <_ZN7Service3runEv>:
+  101381:	55                   	push   ebp
+  101382:	89 e5                	mov    ebp,esp
+  101384:	83 ec 08             	sub    esp,0x8
+  101387:	e8 cd f9 ff ff       	call   100d59 <_ZN28GlobalDescriptorTableManager8ActivateEv>
+  10138c:	e8 c2 fa ff ff       	call   100e53 <_ZN23InterruptServiceRoutine8ActivateEv>
+  101391:	90                   	nop
+  101392:	c9                   	leave  
+  101393:	c3                   	ret    
+
+00101394 <_ZN7Service4loopEv>:
+  101394:	55                   	push   ebp
+  101395:	89 e5                	mov    ebp,esp
+  101397:	90                   	nop
+  101398:	5d                   	pop    ebp
+  101399:	c3                   	ret    
+  10139a:	55                   	push   ebp
+  10139b:	4e                   	dec    esi
+  10139c:	48                   	dec    eax
+  10139d:	41                   	inc    ecx
+  10139e:	4e                   	dec    esi
+  10139f:	44                   	inc    esp
+  1013a0:	4c                   	dec    esp
+  1013a1:	45                   	inc    ebp
+  1013a2:	44                   	inc    esp
+  1013a3:	20 49 4e             	and    BYTE PTR [ecx+0x4e],cl
+  1013a6:	54                   	push   esp
+  1013a7:	45                   	inc    ebp
+  1013a8:	52                   	push   edx
+  1013a9:	52                   	push   edx
+  1013aa:	55                   	push   ebp
+  1013ab:	50                   	push   eax
+  1013ac:	54                   	push   esp
+  1013ad:	20 30                	and    BYTE PTR [eax],dh
+  1013af:	78 00                	js     1013b1 <_ZN7Service4loopEv+0x1d>
+  1013b1:	30 30                	xor    BYTE PTR [eax],dh
+  1013b3:	00 30                	add    BYTE PTR [eax],dh
+  1013b5:	31 32                	xor    DWORD PTR [edx],esi
+  1013b7:	33 34 35 36 37 38 39 	xor    esi,DWORD PTR [esi*1+0x39383736]
+  1013be:	41                   	inc    ecx
+  1013bf:	42                   	inc    edx
+  1013c0:	43                   	inc    ebx
+  1013c1:	44                   	inc    esp
+  1013c2:	45                   	inc    ebp
+  1013c3:	46                   	inc    esi
+  1013c4:	00 48 61             	add    BYTE PTR [eax+0x61],cl
+  1013c7:	72 64                	jb     10142d <_ZN7Service4loopEv+0x99>
+  1013c9:	77 61                	ja     10142c <_ZN7Service4loopEv+0x98>
+  1013cb:	72 65                	jb     101432 <_ZN7Service4loopEv+0x9e>
+  1013cd:	20 69 6e             	and    BYTE PTR [ecx+0x6e],ch
+  1013d0:	69 74 69 61 6c 69 7a 	imul   esi,DWORD PTR [ecx+ebp*2+0x61],0x657a696c
+  1013d7:	65 
+  1013d8:	0a 00                	or     al,BYTE PTR [eax]
+  1013da:	73 65                	jae    101441 <_ZN7Service4loopEv+0xad>
+  1013dc:	72 76                	jb     101454 <_ZN7Service4loopEv+0xc0>
+  1013de:	69 63 65 20 73 74 61 	imul   esp,DWORD PTR [ebx+0x65],0x61747320
+  1013e5:	72 74                	jb     10145b <_ZN7Service4loopEv+0xc7>
+  1013e7:	65 64 0a 00          	gs or  al,BYTE PTR fs:[eax]
+  1013eb:	53                   	push   ebx
+  1013ec:	65 72 76             	gs jb  101465 <_ZN7Service4loopEv+0xd1>
+  1013ef:	69 63 65 3a 20 41 63 	imul   esp,DWORD PTR [ebx+0x65],0x6341203a
+  1013f6:	74 69                	je     101461 <_ZN7Service4loopEv+0xcd>
+  1013f8:	76 61                	jbe    10145b <_ZN7Service4loopEv+0xc7>
+  1013fa:	74 65                	je     101461 <_ZN7Service4loopEv+0xcd>
+  1013fc:	64 0a 00             	or     al,BYTE PTR fs:[eax]
+
+Disassembly of section .eh_frame:
+
+00101400 <.eh_frame>:
+  101400:	14 00                	adc    al,0x0
+  101402:	00 00                	add    BYTE PTR [eax],al
+  101404:	00 00                	add    BYTE PTR [eax],al
+  101406:	00 00                	add    BYTE PTR [eax],al
+  101408:	01 7a 52             	add    DWORD PTR [edx+0x52],edi
+  10140b:	00 01                	add    BYTE PTR [ecx],al
+  10140d:	7c 08                	jl     101417 <_ZN7Service4loopEv+0x83>
+  10140f:	01 1b                	add    DWORD PTR [ebx],ebx
+  101411:	0c 04                	or     al,0x4
+  101413:	04 88                	add    al,0x88
+  101415:	01 00                	add    DWORD PTR [eax],eax
+  101417:	00 20                	add    BYTE PTR [eax],ah
+  101419:	00 00                	add    BYTE PTR [eax],al
+  10141b:	00 1c 00             	add    BYTE PTR [eax+eax*1],bl
+  10141e:	00 00                	add    BYTE PTR [eax],al
+  101420:	64 ec                	fs in  al,dx
+  101422:	ff                   	(bad)  
+  101423:	ff                   	(bad)  
+  101424:	bc 00 00 00 00       	mov    esp,0x0
+  101429:	41                   	inc    ecx
+  10142a:	0e                   	push   cs
+  10142b:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  101431:	44                   	inc    esp
+  101432:	83 03 02             	add    DWORD PTR [ebx],0x2
+  101435:	b3 c3                	mov    bl,0xc3
+  101437:	41                   	inc    ecx
+  101438:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  10143b:	04 24                	add    al,0x24
+  10143d:	00 00                	add    BYTE PTR [eax],al
+  10143f:	00 40 00             	add    BYTE PTR [eax+0x0],al
+  101442:	00 00                	add    BYTE PTR [eax],al
+  101444:	dd eb                	fucomp st(3)
+  101446:	ff                   	(bad)  
+  101447:	ff 48 00             	dec    DWORD PTR [eax+0x0]
+  10144a:	00 00                	add    BYTE PTR [eax],al
+  10144c:	00 41 0e             	add    BYTE PTR [ecx+0xe],al
+  10144f:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  101455:	42                   	inc    edx
+  101456:	86 03                	xchg   BYTE PTR [ebx],al
+  101458:	83 04 02 40          	add    DWORD PTR [edx+eax*1],0x40
+  10145c:	c3                   	ret    
+  10145d:	41                   	inc    ecx
+  10145e:	c6 41 c5 0c          	mov    BYTE PTR [ecx-0x3b],0xc
+  101462:	04 04                	add    al,0x4
+  101464:	1c 00                	sbb    al,0x0
+  101466:	00 00                	add    BYTE PTR [eax],al
+  101468:	68 00 00 00 fd       	push   0xfd000000
+  10146d:	eb ff                	jmp    10146e <_ZN7Service4loopEv+0xda>
+  10146f:	ff 1a                	call   FWORD PTR [edx]
+  101471:	00 00                	add    BYTE PTR [eax],al
+  101473:	00 00                	add    BYTE PTR [eax],al
+  101475:	41                   	inc    ecx
+  101476:	0e                   	push   cs
+  101477:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  10147d:	56                   	push   esi
+  10147e:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  101481:	04 00                	add    al,0x0
+  101483:	00 1c 00             	add    BYTE PTR [eax+eax*1],bl
+  101486:	00 00                	add    BYTE PTR [eax],al
+  101488:	88 00                	mov    BYTE PTR [eax],al
+  10148a:	00 00                	add    BYTE PTR [eax],al
+  10148c:	ee                   	out    dx,al
+  10148d:	ed                   	in     eax,dx
+  10148e:	ff                   	(bad)  
+  10148f:	ff 2f                	jmp    FWORD PTR [edi]
+  101491:	00 00                	add    BYTE PTR [eax],al
+  101493:	00 00                	add    BYTE PTR [eax],al
+  101495:	41                   	inc    ecx
+  101496:	0e                   	push   cs
+  101497:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  10149d:	6b c5 0c             	imul   eax,ebp,0xc
+  1014a0:	04 04                	add    al,0x4
+  1014a2:	00 00                	add    BYTE PTR [eax],al
+  1014a4:	1c 00                	sbb    al,0x0
+  1014a6:	00 00                	add    BYTE PTR [eax],al
+  1014a8:	a8 00                	test   al,0x0
+  1014aa:	00 00                	add    BYTE PTR [eax],al
+  1014ac:	fe                   	(bad)  
+  1014ad:	ed                   	in     eax,dx
+  1014ae:	ff                   	(bad)  
+  1014af:	ff 18                	call   FWORD PTR [eax]
+  1014b1:	00 00                	add    BYTE PTR [eax],al
+  1014b3:	00 00                	add    BYTE PTR [eax],al
+  1014b5:	41                   	inc    ecx
+  1014b6:	0e                   	push   cs
+  1014b7:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  1014bd:	54                   	push   esp
+  1014be:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  1014c1:	04 00                	add    al,0x0
+  1014c3:	00 1c 00             	add    BYTE PTR [eax+eax*1],bl
+  1014c6:	00 00                	add    BYTE PTR [eax],al
+  1014c8:	c8 00 00 00          	enter  0x0,0x0
+  1014cc:	f6 ed                	imul   ch
+  1014ce:	ff                   	(bad)  
+  1014cf:	ff 31                	push   DWORD PTR [ecx]
+  1014d1:	00 00                	add    BYTE PTR [eax],al
+  1014d3:	00 00                	add    BYTE PTR [eax],al
+  1014d5:	41                   	inc    ecx
+  1014d6:	0e                   	push   cs
+  1014d7:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  1014dd:	6d                   	ins    DWORD PTR es:[edi],dx
+  1014de:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  1014e1:	04 00                	add    al,0x0
+  1014e3:	00 1c 00             	add    BYTE PTR [eax+eax*1],bl
+  1014e6:	00 00                	add    BYTE PTR [eax],al
+  1014e8:	e8 00 00 00 54       	call   541014ed <MAGIC+0x386264eb>
+  1014ed:	ec                   	in     al,dx
+  1014ee:	ff                   	(bad)  
+  1014ef:	ff 51 00             	call   DWORD PTR [ecx+0x0]
+  1014f2:	00 00                	add    BYTE PTR [eax],al
+  1014f4:	00 41 0e             	add    BYTE PTR [ecx+0xe],al
+  1014f7:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  1014fd:	02 4d c5             	add    cl,BYTE PTR [ebp-0x3b]
+  101500:	0c 04                	or     al,0x4
+  101502:	04 00                	add    al,0x0
+  101504:	1c 00                	sbb    al,0x0
+  101506:	00 00                	add    BYTE PTR [eax],al
+  101508:	08 01                	or     BYTE PTR [ecx],al
+  10150a:	00 00                	add    BYTE PTR [eax],al
+  10150c:	e8 ed ff ff 1a       	call   1b1014fe <_ZZ6printfPKcE1y+0x1affaf4d>
+  101511:	00 00                	add    BYTE PTR [eax],al
+  101513:	00 00                	add    BYTE PTR [eax],al
+  101515:	41                   	inc    ecx
+  101516:	0e                   	push   cs
+  101517:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  10151d:	56                   	push   esi
+  10151e:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  101521:	04 00                	add    al,0x0
+  101523:	00 1c 00             	add    BYTE PTR [eax+eax*1],bl
+  101526:	00 00                	add    BYTE PTR [eax],al
+  101528:	28 01                	sub    BYTE PTR [ecx],al
+  10152a:	00 00                	add    BYTE PTR [eax],al
+  10152c:	e2 ed                	loop   10151b <_ZN7Service4loopEv+0x187>
+  10152e:	ff                   	(bad)  
+  10152f:	ff 06                	inc    DWORD PTR [esi]
+  101531:	00 00                	add    BYTE PTR [eax],al
+  101533:	00 00                	add    BYTE PTR [eax],al
+  101535:	41                   	inc    ecx
+  101536:	0e                   	push   cs
+  101537:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  10153d:	42                   	inc    edx
+  10153e:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  101541:	04 00                	add    al,0x0
+  101543:	00 1c 00             	add    BYTE PTR [eax+eax*1],bl
+  101546:	00 00                	add    BYTE PTR [eax],al
+  101548:	48                   	dec    eax
+  101549:	01 00                	add    DWORD PTR [eax],eax
+  10154b:	00 45 ec             	add    BYTE PTR [ebp-0x14],al
+  10154e:	ff                   	(bad)  
+  10154f:	ff b5 00 00 00 00    	push   DWORD PTR [ebp+0x0]
+  101555:	41                   	inc    ecx
+  101556:	0e                   	push   cs
+  101557:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  10155d:	02 b1 c5 0c 04 04    	add    dh,BYTE PTR [ecx+0x4040cc5]
+  101563:	00 1c 00             	add    BYTE PTR [eax+eax*1],bl
+  101566:	00 00                	add    BYTE PTR [eax],al
+  101568:	68 01 00 00 da       	push   0xda000001
+  10156d:	ec                   	in     al,dx
+  10156e:	ff                   	(bad)  
+  10156f:	ff 1a                	call   FWORD PTR [edx]
+  101571:	00 00                	add    BYTE PTR [eax],al
+  101573:	00 00                	add    BYTE PTR [eax],al
+  101575:	41                   	inc    ecx
+  101576:	0e                   	push   cs
+  101577:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  10157d:	56                   	push   esi
+  10157e:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  101581:	04 00                	add    al,0x0
+  101583:	00 1c 00             	add    BYTE PTR [eax+eax*1],bl
+  101586:	00 00                	add    BYTE PTR [eax],al
+  101588:	88 01                	mov    BYTE PTR [ecx],al
+  10158a:	00 00                	add    BYTE PTR [eax],al
+  10158c:	d4 ec                	aam    0xec
+  10158e:	ff                   	(bad)  
+  10158f:	ff 1a                	call   FWORD PTR [edx]
+  101591:	00 00                	add    BYTE PTR [eax],al
+  101593:	00 00                	add    BYTE PTR [eax],al
+  101595:	41                   	inc    ecx
+  101596:	0e                   	push   cs
+  101597:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  10159d:	56                   	push   esi
+  10159e:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  1015a1:	04 00                	add    al,0x0
+  1015a3:	00 20                	add    BYTE PTR [eax],ah
+  1015a5:	00 00                	add    BYTE PTR [eax],al
+  1015a7:	00 a8 01 00 00 20    	add    BYTE PTR [eax+0x20000001],ch
+  1015ad:	f2 ff                	repnz (bad) 
+  1015af:	ff c3                	inc    ebx
+  1015b1:	00 00                	add    BYTE PTR [eax],al
+  1015b3:	00 00                	add    BYTE PTR [eax],al
+  1015b5:	41                   	inc    ecx
+  1015b6:	0e                   	push   cs
+  1015b7:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  1015bd:	41                   	inc    ecx
+  1015be:	83 03 02             	add    DWORD PTR [ebx],0x2
+  1015c1:	bd c3 41 c5 0c       	mov    ebp,0xcc541c3
+  1015c6:	04 04                	add    al,0x4
+  1015c8:	1c 00                	sbb    al,0x0
+  1015ca:	00 00                	add    BYTE PTR [eax],al
+  1015cc:	cc                   	int3   
+  1015cd:	01 00                	add    DWORD PTR [eax],eax
+  1015cf:	00 bf f2 ff ff 03    	add    BYTE PTR [edi+0x3fffff2],bh
+  1015d5:	01 00                	add    DWORD PTR [eax],eax
+  1015d7:	00 00                	add    BYTE PTR [eax],al
+  1015d9:	41                   	inc    ecx
+  1015da:	0e                   	push   cs
+  1015db:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  1015e1:	02 fd                	add    bh,ch
+  1015e3:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  1015e6:	04 00                	add    al,0x0
+  1015e8:	2c 00                	sub    al,0x0
+  1015ea:	00 00                	add    BYTE PTR [eax],al
+  1015ec:	ec                   	in     al,dx
+  1015ed:	01 00                	add    DWORD PTR [eax],eax
+  1015ef:	00 a2 f3 ff ff 60    	add    BYTE PTR [edx+0x60fffff3],ah
+  1015f5:	01 00                	add    DWORD PTR [eax],eax
+  1015f7:	00 00                	add    BYTE PTR [eax],al
+  1015f9:	41                   	inc    ecx
+  1015fa:	0e                   	push   cs
+  1015fb:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  101601:	46                   	inc    esi
+  101602:	87 03                	xchg   DWORD PTR [ebx],eax
+  101604:	86 04 83             	xchg   BYTE PTR [ebx+eax*4],al
+  101607:	05 03 51 01 c3       	add    eax,0xc3015103
+  10160c:	41                   	inc    ecx
+  10160d:	c6 41 c7 41          	mov    BYTE PTR [ecx-0x39],0x41
+  101611:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  101614:	04 00                	add    al,0x0
+  101616:	00 00                	add    BYTE PTR [eax],al
+  101618:	2c 00                	sub    al,0x0
+  10161a:	00 00                	add    BYTE PTR [eax],al
+  10161c:	1c 02                	sbb    al,0x2
+  10161e:	00 00                	add    BYTE PTR [eax],al
+  101620:	d2 f4                	shl    ah,cl
+  101622:	ff                   	(bad)  
+  101623:	ff 60 01             	jmp    DWORD PTR [eax+0x1]
+  101626:	00 00                	add    BYTE PTR [eax],al
+  101628:	00 41 0e             	add    BYTE PTR [ecx+0xe],al
+  10162b:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  101631:	46                   	inc    esi
+  101632:	87 03                	xchg   DWORD PTR [ebx],eax
+  101634:	86 04 83             	xchg   BYTE PTR [ebx+eax*4],al
+  101637:	05 03 51 01 c3       	add    eax,0xc3015103
+  10163c:	41                   	inc    ecx
+  10163d:	c6 41 c7 41          	mov    BYTE PTR [ecx-0x39],0x41
+  101641:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  101644:	04 00                	add    al,0x0
+  101646:	00 00                	add    BYTE PTR [eax],al
+  101648:	1c 00                	sbb    al,0x0
+  10164a:	00 00                	add    BYTE PTR [eax],al
+  10164c:	4c                   	dec    esp
+  10164d:	02 00                	add    al,BYTE PTR [eax]
+  10164f:	00 02                	add    BYTE PTR [edx],al
+  101651:	f6 ff                	idiv   bh
+  101653:	ff 07                	inc    DWORD PTR [edi]
+  101655:	01 00                	add    DWORD PTR [eax],eax
+  101657:	00 00                	add    BYTE PTR [eax],al
+  101659:	41                   	inc    ecx
+  10165a:	0e                   	push   cs
+  10165b:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  101661:	03 03                	add    eax,DWORD PTR [ebx]
+  101663:	01 c5                	add    ebp,eax
+  101665:	0c 04                	or     al,0x4
+  101667:	04 1c                	add    al,0x1c
+  101669:	00 00                	add    BYTE PTR [eax],al
+  10166b:	00 6c 02 00          	add    BYTE PTR [edx+eax*1+0x0],ch
+  10166f:	00 e9                	add    cl,ch
+  101671:	f6 ff                	idiv   bh
+  101673:	ff 25 00 00 00 00    	jmp    DWORD PTR ds:0x0
+  101679:	41                   	inc    ecx
+  10167a:	0e                   	push   cs
+  10167b:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  101681:	61                   	popa   
+  101682:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  101685:	04 00                	add    al,0x0
+  101687:	00 1c 00             	add    BYTE PTR [eax+eax*1],bl
+  10168a:	00 00                	add    BYTE PTR [eax],al
+  10168c:	8c 02                	mov    WORD PTR [edx],es
+  10168e:	00 00                	add    BYTE PTR [eax],al
+  101690:	ee                   	out    dx,al
+  101691:	f6 ff                	idiv   bh
+  101693:	ff 2e                	jmp    FWORD PTR [esi]
+  101695:	00 00                	add    BYTE PTR [eax],al
+  101697:	00 00                	add    BYTE PTR [eax],al
+  101699:	41                   	inc    ecx
+  10169a:	0e                   	push   cs
+  10169b:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  1016a1:	6a c5                	push   0xffffffc5
+  1016a3:	0c 04                	or     al,0x4
+  1016a5:	04 00                	add    al,0x0
+  1016a7:	00 1c 00             	add    BYTE PTR [eax+eax*1],bl
+  1016aa:	00 00                	add    BYTE PTR [eax],al
+  1016ac:	ac                   	lods   al,BYTE PTR ds:[esi]
+  1016ad:	02 00                	add    al,BYTE PTR [eax]
+  1016af:	00 fc                	add    ah,bh
+  1016b1:	f6 ff                	idiv   bh
+  1016b3:	ff 0a                	dec    DWORD PTR [edx]
+  1016b5:	00 00                	add    BYTE PTR [eax],al
+  1016b7:	00 00                	add    BYTE PTR [eax],al
+  1016b9:	41                   	inc    ecx
+  1016ba:	0e                   	push   cs
+  1016bb:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  1016c1:	46                   	inc    esi
+  1016c2:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  1016c5:	04 00                	add    al,0x0
+  1016c7:	00 1c 00             	add    BYTE PTR [eax+eax*1],bl
+  1016ca:	00 00                	add    BYTE PTR [eax],al
+  1016cc:	cc                   	int3   
+  1016cd:	02 00                	add    al,BYTE PTR [eax]
+  1016cf:	00 e6                	add    dh,ah
+  1016d1:	f6 ff                	idiv   bh
+  1016d3:	ff 1f                	call   FWORD PTR [edi]
+  1016d5:	00 00                	add    BYTE PTR [eax],al
+  1016d7:	00 00                	add    BYTE PTR [eax],al
+  1016d9:	41                   	inc    ecx
+  1016da:	0e                   	push   cs
+  1016db:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  1016e1:	5b                   	pop    ebx
+  1016e2:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  1016e5:	04 00                	add    al,0x0
+  1016e7:	00 20                	add    BYTE PTR [eax],ah
+  1016e9:	00 00                	add    BYTE PTR [eax],al
+  1016eb:	00 ec                	add    ah,ch
+  1016ed:	02 00                	add    al,BYTE PTR [eax]
+  1016ef:	00 e5                	add    ch,ah
+  1016f1:	f6 ff                	idiv   bh
+  1016f3:	ff                   	(bad)  
+  1016f4:	7e 00                	jle    1016f6 <_ZN7Service4loopEv+0x362>
+  1016f6:	00 00                	add    BYTE PTR [eax],al
+  1016f8:	00 41 0e             	add    BYTE PTR [ecx+0xe],al
+  1016fb:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  101701:	44                   	inc    esp
+  101702:	83 03 02             	add    DWORD PTR [ebx],0x2
+  101705:	75 c3                	jne    1016ca <_ZN7Service4loopEv+0x336>
+  101707:	41                   	inc    ecx
+  101708:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  10170b:	04 1c                	add    al,0x1c
+  10170d:	00 00                	add    BYTE PTR [eax],al
+  10170f:	00 10                	add    BYTE PTR [eax],dl
+  101711:	03 00                	add    eax,DWORD PTR [eax]
+  101713:	00 3f                	add    BYTE PTR [edi],bh
+  101715:	f7 ff                	idiv   edi
+  101717:	ff 0e                	dec    DWORD PTR [esi]
+  101719:	00 00                	add    BYTE PTR [eax],al
+  10171b:	00 00                	add    BYTE PTR [eax],al
+  10171d:	41                   	inc    ecx
+  10171e:	0e                   	push   cs
+  10171f:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  101725:	4a                   	dec    edx
+  101726:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  101729:	04 00                	add    al,0x0
+  10172b:	00 1c 00             	add    BYTE PTR [eax+eax*1],bl
+  10172e:	00 00                	add    BYTE PTR [eax],al
+  101730:	30 03                	xor    BYTE PTR [ebx],al
+  101732:	00 00                	add    BYTE PTR [eax],al
+  101734:	2d f7 ff ff 0d       	sub    eax,0xdfffff7
+  101739:	05 00 00 00 41       	add    eax,0x41000000
+  10173e:	0e                   	push   cs
+  10173f:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  101745:	03 09                	add    ecx,DWORD PTR [ecx]
+  101747:	05 c5 0c 04 04       	add    eax,0x4040cc5
+  10174c:	1c 00                	sbb    al,0x0
+  10174e:	00 00                	add    BYTE PTR [eax],al
+  101750:	50                   	push   eax
+  101751:	03 00                	add    eax,DWORD PTR [eax]
+  101753:	00 1a                	add    BYTE PTR [edx],bl
+  101755:	fc                   	cld    
+  101756:	ff                   	(bad)  
+  101757:	ff 13                	call   DWORD PTR [ebx]
+  101759:	00 00                	add    BYTE PTR [eax],al
+  10175b:	00 00                	add    BYTE PTR [eax],al
+  10175d:	41                   	inc    ecx
+  10175e:	0e                   	push   cs
+  10175f:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  101765:	4f                   	dec    edi
+  101766:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  101769:	04 00                	add    al,0x0
+  10176b:	00 1c 00             	add    BYTE PTR [eax+eax*1],bl
+  10176e:	00 00                	add    BYTE PTR [eax],al
+  101770:	70 03                	jo     101775 <_ZN7Service4loopEv+0x3e1>
+  101772:	00 00                	add    BYTE PTR [eax],al
+  101774:	0d fc ff ff 13       	or     eax,0x13fffffc
+  101779:	00 00                	add    BYTE PTR [eax],al
+  10177b:	00 00                	add    BYTE PTR [eax],al
+  10177d:	41                   	inc    ecx
+  10177e:	0e                   	push   cs
+  10177f:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  101785:	4f                   	dec    edi
+  101786:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  101789:	04 00                	add    al,0x0
+  10178b:	00 1c 00             	add    BYTE PTR [eax+eax*1],bl
+  10178e:	00 00                	add    BYTE PTR [eax],al
+  101790:	90                   	nop
+  101791:	03 00                	add    eax,DWORD PTR [eax]
+  101793:	00 00                	add    BYTE PTR [eax],al
+  101795:	fc                   	cld    
+  101796:	ff                   	(bad)  
+  101797:	ff 06                	inc    DWORD PTR [esi]
+  101799:	00 00                	add    BYTE PTR [eax],al
+  10179b:	00 00                	add    BYTE PTR [eax],al
+  10179d:	41                   	inc    ecx
+  10179e:	0e                   	push   cs
+  10179f:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  1017a5:	42                   	inc    edx
+  1017a6:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  1017a9:	04 00                	add    al,0x0
+  1017ab:	00 24 00             	add    BYTE PTR [eax+eax*1],ah
+  1017ae:	00 00                	add    BYTE PTR [eax],al
+  1017b0:	b0 03                	mov    al,0x3
+  1017b2:	00 00                	add    BYTE PTR [eax],al
+  1017b4:	48                   	dec    eax
+  1017b5:	ed                   	in     eax,dx
+  1017b6:	ff                   	(bad)  
+  1017b7:	ff 8f 01 00 00 00    	dec    DWORD PTR [edi+0x1]
+  1017bd:	41                   	inc    ecx
+  1017be:	0e                   	push   cs
+  1017bf:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  1017c5:	44                   	inc    esp
+  1017c6:	83 03 03             	add    DWORD PTR [ebx],0x3
+  1017c9:	86 01                	xchg   BYTE PTR [ecx],al
+  1017cb:	c3                   	ret    
+  1017cc:	41                   	inc    ecx
+  1017cd:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  1017d0:	04 00                	add    al,0x0
+  1017d2:	00 00                	add    BYTE PTR [eax],al
+  1017d4:	1c 00                	sbb    al,0x0
+  1017d6:	00 00                	add    BYTE PTR [eax],al
+  1017d8:	d8 03                	fadd   DWORD PTR [ebx]
+  1017da:	00 00                	add    BYTE PTR [eax],al
+  1017dc:	af                   	scas   eax,DWORD PTR es:[edi]
+  1017dd:	ee                   	out    dx,al
+  1017de:	ff                   	(bad)  
+  1017df:	ff 58 00             	call   FWORD PTR [eax+0x0]
+  1017e2:	00 00                	add    BYTE PTR [eax],al
+  1017e4:	00 41 0e             	add    BYTE PTR [ecx+0xe],al
+  1017e7:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  1017ed:	02 54 c5 0c          	add    dl,BYTE PTR [ebp+eax*8+0xc]
+  1017f1:	04 04                	add    al,0x4
+  1017f3:	00 1c 00             	add    BYTE PTR [eax+eax*1],bl
+  1017f6:	00 00                	add    BYTE PTR [eax],al
+  1017f8:	f8                   	clc    
+  1017f9:	03 00                	add    eax,DWORD PTR [eax]
+  1017fb:	00 e7                	add    bh,ah
+  1017fd:	ee                   	out    dx,al
+  1017fe:	ff                   	(bad)  
+  1017ff:	ff 34 00             	push   DWORD PTR [eax+eax*1]
+  101802:	00 00                	add    BYTE PTR [eax],al
+  101804:	00 41 0e             	add    BYTE PTR [ecx+0xe],al
+  101807:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  10180d:	70 c5                	jo     1017d4 <_ZN7Service4loopEv+0x440>
+  10180f:	0c 04                	or     al,0x4
+  101811:	04 00                	add    al,0x0
+  101813:	00 1c 00             	add    BYTE PTR [eax+eax*1],bl
+  101816:	00 00                	add    BYTE PTR [eax],al
+  101818:	18 04 00             	sbb    BYTE PTR [eax+eax*1],al
+  10181b:	00 fb                	add    bl,bh
+  10181d:	ee                   	out    dx,al
+  10181e:	ff                   	(bad)  
+  10181f:	ff 4b 00             	dec    DWORD PTR [ebx+0x0]
+  101822:	00 00                	add    BYTE PTR [eax],al
+  101824:	00 41 0e             	add    BYTE PTR [ecx+0xe],al
+  101827:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  10182d:	02 47 c5             	add    al,BYTE PTR [edi-0x3b]
+  101830:	0c 04                	or     al,0x4
+  101832:	04 00                	add    al,0x0
+  101834:	1c 00                	sbb    al,0x0
+  101836:	00 00                	add    BYTE PTR [eax],al
+  101838:	38 04 00             	cmp    BYTE PTR [eax+eax*1],al
+  10183b:	00 26                	add    BYTE PTR [esi],ah
+  10183d:	ef                   	out    dx,eax
+  10183e:	ff                   	(bad)  
+  10183f:	ff 26                	jmp    DWORD PTR [esi]
+  101841:	00 00                	add    BYTE PTR [eax],al
+  101843:	00 00                	add    BYTE PTR [eax],al
+  101845:	41                   	inc    ecx
+  101846:	0e                   	push   cs
+  101847:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  10184d:	62                   	(bad)  
+  10184e:	c5 0c 04             	lds    ecx,FWORD PTR [esp+eax*1]
+  101851:	04 00                	add    al,0x0
+  101853:	00 18                	add    BYTE PTR [eax],bl
+  101855:	00 00                	add    BYTE PTR [eax],al
+  101857:	00 58 04             	add    BYTE PTR [eax+0x4],bl
+  10185a:	00 00                	add    BYTE PTR [eax],al
+  10185c:	2c ef                	sub    al,0xef
+  10185e:	ff                   	(bad)  
+  10185f:	ff 44 00 00          	inc    DWORD PTR [eax+eax*1+0x0]
+  101863:	00 00                	add    BYTE PTR [eax],al
+  101865:	41                   	inc    ecx
+  101866:	0e                   	push   cs
+  101867:	08 85 02 42 0d 05    	or     BYTE PTR [ebp+0x50d4202],al
+  10186d:	00 00                	add    BYTE PTR [eax],al
+	...
+
+Disassembly of section .rodata._ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE:
+
+00101870 <.rodata._ZN28GlobalDescriptorTableManager17makeSystemSegmentEjjNS_16GlobalDescriptor15DescriptorLevelEbbNS0_10SystemTypeE>:
+  101870:	55                   	push   ebp
+  101871:	09 10                	or     DWORD PTR [eax],edx
+  101873:	00 fb                	add    bl,bh
+  101875:	08 10                	or     BYTE PTR [eax],dl
+  101877:	00 01                	add    BYTE PTR [ecx],al
+  101879:	09 10                	or     DWORD PTR [eax],edx
+  10187b:	00 07                	add    BYTE PTR [edi],al
+  10187d:	09 10                	or     DWORD PTR [eax],edx
+  10187f:	00 0d 09 10 00 13    	add    BYTE PTR ds:0x13001009,cl
+  101885:	09 10                	or     DWORD PTR [eax],edx
+  101887:	00 19                	add    BYTE PTR [ecx],bl
+  101889:	09 10                	or     DWORD PTR [eax],edx
+  10188b:	00 1f                	add    BYTE PTR [edi],bl
+  10188d:	09 10                	or     DWORD PTR [eax],edx
+  10188f:	00 25 09 10 00 2b    	add    BYTE PTR ds:0x2b001009,ah
+  101895:	09 10                	or     DWORD PTR [eax],edx
+  101897:	00 31                	add    BYTE PTR [ecx],dh
+  101899:	09 10                	or     DWORD PTR [eax],edx
+  10189b:	00 37                	add    BYTE PTR [edi],dh
+  10189d:	09 10                	or     DWORD PTR [eax],edx
+  10189f:	00 3d 09 10 00 43    	add    BYTE PTR ds:0x43001009,bh
+  1018a5:	09 10                	or     DWORD PTR [eax],edx
+  1018a7:	00 49 09             	add    BYTE PTR [ecx+0x9],cl
+  1018aa:	10 00                	adc    BYTE PTR [eax],al
+  1018ac:	4f                   	dec    edi
+  1018ad:	09 10                	or     DWORD PTR [eax],edx
+	...
+
+Disassembly of section .data:
+
+001018b0 <start_ctors>:
+  1018b0:	69 00 10 00 46 02    	imul   eax,DWORD PTR [eax],0x2460010
+  1018b6:	10 00                	adc    BYTE PTR [eax],al
+
+001018b8 <end_ctors>:
+  1018b8:	00 00                	add    BYTE PTR [eax],al
+	...
+
+001018bc <_ZZ6printfPKcE11VideoMemory>:
+  1018bc:	00                   	.byte 0x0
+  1018bd:	80 0b 00             	or     BYTE PTR [ebx],0x0
+
+Disassembly of section .bss:
+
+001018c0 <stack_bottom>:
+	...
+
+001058c0 <_ZN28GlobalDescriptorTableManager3gdtE>:
+	...
+
+00105960 <_ZN28GlobalDescriptorTableManager11GDT_EntriesE>:
+	...
+
+00105980 <_ZN23InterruptServiceRoutine8handlersE>:
+	...
+
+00105d80 <_ZN23InterruptServiceRoutine15interruptEnableE>:
+	...
+
+00105da0 <_ZN23InterruptServiceRoutine24interruptDescriptorTableE>:
+	...
+
+001065a0 <_ZN23InterruptServiceRoutine48programmableInterruptControllerMasterCommandPortE>:
+  1065a0:	00 00                	add    BYTE PTR [eax],al
+	...
+
+001065a4 <_ZN23InterruptServiceRoutine45programmableInterruptControllerMasterDataPortE>:
+  1065a4:	00 00                	add    BYTE PTR [eax],al
+	...
+
+001065a8 <_ZN23InterruptServiceRoutine47programmableInterruptControllerSlaveCommandPortE>:
+  1065a8:	00 00                	add    BYTE PTR [eax],al
+	...
+
+001065ac <_ZN23InterruptServiceRoutine44programmableInterruptControllerSlaveDataPortE>:
+  1065ac:	00 00                	add    BYTE PTR [eax],al
+	...
+
+001065b0 <_ZZ6printfPKcE1x>:
+	...
+
+001065b1 <_ZZ6printfPKcE1y>:
+	...

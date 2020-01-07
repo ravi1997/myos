@@ -5,6 +5,8 @@
 #include<lang//types.hpp>
 #endif
 
+#include<system//outputstream.hpp>
+
 #define MAXGDT 20
 
 class GlobalDescriptorTableManager{
@@ -50,13 +52,13 @@ public:
     };
 
     GlobalDescriptor(uint_32 base=0,uint_32 limit=0,uint_8 access=0,uint_8 granuality=0){
-      limit_lo=limit&0xffff;
+      limit_lo=(uint_16)(limit&0x0000ffff);
 
-      base_lo=base&0xffffff;
+      base_lo=(uint_32)(base&0x00ffffff);
       flag_low=access;
-      limit_hi=((limit>>16)&0xf);
-      flag_hi=(granuality>>4)&0xf;
-      base_hi=(base>>24)&0xff;
+      limit_hi=(uint_8)((uint_16)(limit>>16)&0x000f);
+      flag_hi=(granuality>>4)&0x0f;
+      base_hi=(uint_8)(base>>24)&0xff;
     }
 
     GlobalDescriptor(const GlobalDescriptor& g){
@@ -101,18 +103,18 @@ public:
     uint_32 getBase(){
       uint_32 base=base_hi;
       base<<=24;
-      base|=(base_lo&0xffffff);
+      base|=(base_lo&0x00ffffff);
       return base;
     }
 
 
     uint_32 getLimit(){
-      uint_32 limit=limit_hi;
+      uint_32 limit=0x0000000f&limit_hi;
       limit<<=16;
-      limit|=(limit_lo&0xffff);
+      limit|=(0x0000ffff&limit_lo);
       return limit;
     }
-  };
+  }__attribute__((packed));
 
 
 //  static GlobalDescriptor makeLDT();
@@ -236,11 +238,11 @@ public:
         GlobalDescriptor::DescriptorLevel::KERNELLEVEL,
         true,
         true,
-        false,
+        true,
         true,
         false,
         true,
-        false
+        true
       )
     ); //kernel code Descriptor
     GlobalDescriptorTableManager::registerDescriptor(
@@ -250,11 +252,11 @@ public:
         GlobalDescriptor::DescriptorLevel::KERNELLEVEL,
         true,
         true,
-        false,
+        true,
         true,
         false,
         true,
-        false
+        true
       )
     ); //kernel data Descriptor
     GlobalDescriptorTableManager::registerDescriptor(
@@ -264,13 +266,13 @@ public:
         GlobalDescriptor::DescriptorLevel::USERLEVEL,
         true,
         true,
-        false,
+        true,
         true,
         false,
         true,
-        false
+        true
       )
-    ); //kernel code Descriptor
+    ); //user code Descriptor
     GlobalDescriptorTableManager::registerDescriptor(
       GlobalDescriptorTableManager::makeDataSegment(
         0,
@@ -278,20 +280,25 @@ public:
         GlobalDescriptor::DescriptorLevel::USERLEVEL,
         true,
         true,
-        false,
+        true,
         true,
         false,
         true,
-        false
+        true
       )
-    ); //kernel data Descriptor
+    ); //user data Descriptor
+
+    #ifdef debug
+      ;
+    #endif
 
   }
   static void Activate(){
     uint_32 i[2];
     i[1] = (uint_32)GlobalDescriptorTableManager::gdt;
-    i[0] =  GlobalDescriptorTableManager::GDT_Entries<< 16;
-    asm volatile("lgdt (%0)"::"a" (((uint_8 *) i)+2));
+    i[0] =  GlobalDescriptorTableManager::GDT_Entries<<16;
+    asm volatile("lgdt (%0)"::"p" (((uint_8 *) i)+2));
+
   }
   static void registerDescriptor(const GlobalDescriptor g){
     gdt[GDT_Entries++]=g;
@@ -299,21 +306,21 @@ public:
 
   static GlobalDescriptor gdt[MAXGDT];
   static uint_32 GDT_Entries;
-  const static uint_32 NULLSEGMENTOFFSET=0;
-  const static uint_32 KERNELCODESEGMENTOFFSET=1;
-  const static uint_32 KERNELDATASEGMENTOFFSET=2;
+  const static uint_32 NULLSEGMENTOFFSET=0x00;
+  const static uint_32 KERNELCODESEGMENTOFFSET=0x08;
+  const static uint_32 KERNELDATASEGMENTOFFSET=0x10;
 
   static uint_16 DataSegmentSelector()
   {
-      return (uint_8*)&GlobalDescriptorTableManager::gdt[GlobalDescriptorTableManager::KERNELDATASEGMENTOFFSET] - (uint_8*)GlobalDescriptorTableManager::gdt;
+      return GlobalDescriptorTableManager::KERNELDATASEGMENTOFFSET;
   }
 
   static uint_16 CodeSegmentSelector()
   {
-    return (uint_8*)&GlobalDescriptorTableManager::gdt[GlobalDescriptorTableManager::KERNELCODESEGMENTOFFSET] - (uint_8*)GlobalDescriptorTableManager::gdt;
+    return GlobalDescriptorTableManager::KERNELCODESEGMENTOFFSET;
   }
 
-};
+}__attribute__((packed));
 
 
 

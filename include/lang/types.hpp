@@ -13,4 +13,6 @@ typedef unsigned long long int uint_64;
 typedef const char*              string;
 typedef uint_32                 size_t;
 
+#define debug 1
+
 #endif

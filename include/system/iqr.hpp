@@ -8,9 +8,6 @@
 #include<system//gdt.hpp>
 #endif
 
-void printf(char const* str );
-void printfHex(uint_8 key);
-
 
 class InterruptServiceRoutine{
 protected:
@@ -24,8 +21,7 @@ protected:
   }__attribute__((packed));
 
   struct InterruptDescriptorTablePointer{
-    uint_16 size;
-    uint_32 base;
+    uint_16 size; uint_32 base;
   }__attribute__((packed));
 
 public:
@@ -40,20 +36,14 @@ protected:
 public:
   class InterruptHandler{
   protected:
-      uint_8 InterruptNumber;
-      InterruptHandler(uint_8 InterruptNumber){
-          this->InterruptNumber = InterruptNumber;
-          InterruptServiceRoutine::handlers[InterruptNumber] = this;
-      }
-
-      ~InterruptHandler(){
-              InterruptServiceRoutine::handlers[InterruptNumber] = nullptr;
-      }
-
+    uint_8 InterruptNumber;
+    InterruptHandler(uint_8 InterruptNumber){
+      this->InterruptNumber = InterruptNumber;
+      InterruptServiceRoutine::handlers[InterruptNumber] = this;
+    }
+    ~InterruptHandler(){ handlers[InterruptNumber] = nullptr; }
   public:
-      virtual uint_32 HandleInterrupt(uint_32 esp){
-          return esp;
-      }
+    virtual uint_32 HandleInterrupt(uint_32 esp){      return esp;}
   };
 
   friend class InterruptHandler;
@@ -69,34 +59,27 @@ public:
   static GateDescriptor interruptDescriptorTable[256];
   const static uint_16 hardwareInterruptOffset=0x20;
 
-  static void registerInterrupt(
-                                  uint_8 interruptNumber,
-                                  uint_16 codeSegmentSelectorOffset,
-                                  void (*handler)(),
-                                  uint_8 DescriptorPrivilegeLevel,
-                                  uint_8 DescriptorType
-                               )
-                               {
-                                   // address of pointer to code segment (relative to global descriptor table)
-                                   // and address of the handler (relative to segment)
-                                   interruptDescriptorTable[interruptNumber].handlerAddressLowBits = ((uint_32) handler) & 0xFFFF;
-                                   interruptDescriptorTable[interruptNumber].handlerAddressHighBits = (((uint_32) handler) >> 16) & 0xFFFF;
-                                   interruptDescriptorTable[interruptNumber].codeSegmentSelector = codeSegmentSelectorOffset;
+  static void registerInterrupt(uint_8 interruptNumber,
+    uint_16 codeSegmentSelectorOffset,void (*handler)(),
+    uint_8 DPL,uint_8 DescriptorType
+  )
+  {
+    auto &t=interruptDescriptorTable[interruptNumber];
+    t.handlerAddressLowBits = (uint_16)(((uint_32) handler) & 0x0000FFFF);
+    t.handlerAddressHighBits = (uint_16)((((uint_32) handler) >> 16) & 0x0000FFFF);
+    t.codeSegmentSelector = codeSegmentSelectorOffset;
 
-                                   const uint_8 IDT_DESC_PRESENT = 0x80;
-                                   interruptDescriptorTable[interruptNumber].access = IDT_DESC_PRESENT | ((DescriptorPrivilegeLevel & 3) << 5) | DescriptorType;
-                                   interruptDescriptorTable[interruptNumber].reserved = 0;
-                               }
+    const uint_8 IDT_DESC_PRESENT = 0x80;
+    t.access = IDT_DESC_PRESENT | DescriptorType;
+    t.reserved = 0;
+  }
 
   static uint_32 HandleInterrupt(uint_8 interruptNumber,uint_32 esp);
 
-
   static uint_32 DoHandleInterrupt(uint_8 interruptNumber,uint_32 esp){
-      printf("UNHANDLED INTERRUPT 0x");
-      printfHex(interruptNumber);
+    cout<<"UNHANDLED INTERRUPT 0x"<<OutputStream::type::HEX<<interruptNumber<<OutputStream::type::DEC;
     return esp;
-}
-
+  }
 
   static void InterruptIgnore();
 
@@ -120,65 +103,36 @@ public:
 
   static void HandleInterruptRequest0x80();
 
-  static void HandleException0x00();
-  static void HandleException0x01();
-  static void HandleException0x02();
-  static void HandleException0x03();
-  static void HandleException0x04();
-  static void HandleException0x05();
-  static void HandleException0x06();
-  static void HandleException0x07();
-  static void HandleException0x08();
-  static void HandleException0x09();
-  static void HandleException0x0A();
-  static void HandleException0x0B();
-  static void HandleException0x0C();
-  static void HandleException0x0D();
-  static void HandleException0x0E();
-  static void HandleException0x0F();
-  static void HandleException0x10();
-  static void HandleException0x11();
-  static void HandleException0x12();
-  static void HandleException0x13();
-
+  static void HandleException0x00();   static void HandleException0x01();
+  static void HandleException0x02();   static void HandleException0x03();
+  static void HandleException0x04();  static void HandleException0x05();
+  static void HandleException0x06();  static void HandleException0x07();
+  static void HandleException0x08();  static void HandleException0x09();
+  static void HandleException0x0A();  static void HandleException0x0B();
+  static void HandleException0x0C();  static void HandleException0x0D();
+  static void HandleException0x0E();  static void HandleException0x0F();
+  static void HandleException0x10();  static void HandleException0x11();
+  static void HandleException0x12();  static void HandleException0x13();
 
   static void Activate(){
-      interruptEnable=true;
-      asm("sti");
+    interruptEnable=true;
+    asm("sti");
   }
   static void Deactivate(){
-      interruptEnable=false;
-      asm("cli");
+    interruptEnable=false;
+    asm("cli");
   }
 
   static void Initialize(){
-      InterruptServiceRoutine::programmableInterruptControllerMasterCommandPort.write(0x11);
-      InterruptServiceRoutine::programmableInterruptControllerSlaveCommandPort.write(0x11);
+    auto CodeSegment = GlobalDescriptorTableManager::CodeSegmentSelector();
 
-      // remap
-      InterruptServiceRoutine::programmableInterruptControllerMasterDataPort.write(hardwareInterruptOffset);
-      InterruptServiceRoutine::programmableInterruptControllerSlaveDataPort.write(hardwareInterruptOffset+8);
-
-      InterruptServiceRoutine::programmableInterruptControllerMasterDataPort.write(0x04);
-      InterruptServiceRoutine::programmableInterruptControllerSlaveDataPort.write(0x02);
-
-      InterruptServiceRoutine::programmableInterruptControllerMasterDataPort.write(0x01);
-      InterruptServiceRoutine::programmableInterruptControllerSlaveDataPort.write(0x01);
-
-      InterruptServiceRoutine::programmableInterruptControllerMasterDataPort.write(0x00);
-      InterruptServiceRoutine::programmableInterruptControllerSlaveDataPort.write(0x00);
-
-
-
-    uint_32 CodeSegment = GlobalDescriptorTableManager::CodeSegmentSelector();
-
-    const uint_8 IDT_INTERRUPT_GATE = 0xE;
+    const uint_8 IDT_INTERRUPT_GATE = 0x0E;
     for(uint_8 i = 255; i > 0; --i)
     {
-        registerInterrupt(i, CodeSegment, &InterruptIgnore, 0, IDT_INTERRUPT_GATE);
-        InterruptServiceRoutine::handlers[i] = nullptr;
+      registerInterrupt(i, CodeSegment, &InterruptIgnore, 0, IDT_INTERRUPT_GATE);
+      InterruptServiceRoutine::handlers[i] = nullptr;
     }
-    registerInterrupt(0, CodeSegment, &InterruptIgnore, 0, IDT_INTERRUPT_GATE);
+//    registerInterrupt(0, CodeSegment, &InterruptIgnore, 0, IDT_INTERRUPT_GATE);
     InterruptServiceRoutine::handlers[0] = nullptr;
 
     registerInterrupt(0x00, CodeSegment, &HandleException0x00, 0, IDT_INTERRUPT_GATE);
@@ -219,22 +173,34 @@ public:
     registerInterrupt(hardwareInterruptOffset + 0x0E, CodeSegment, &HandleInterruptRequest0x0E, 0, IDT_INTERRUPT_GATE);
     registerInterrupt(hardwareInterruptOffset + 0x0F, CodeSegment, &HandleInterruptRequest0x0F, 0, IDT_INTERRUPT_GATE);
 
-    registerInterrupt(                          0x80, CodeSegment, &HandleInterruptRequest0x80, 0, IDT_INTERRUPT_GATE);
+    registerInterrupt(0x80, CodeSegment, &HandleInterruptRequest0x80, 0, IDT_INTERRUPT_GATE);
 
+    InterruptServiceRoutine::programmableInterruptControllerMasterCommandPort.write(0x11);
+    InterruptServiceRoutine::programmableInterruptControllerSlaveCommandPort.write(0x11);
+
+    InterruptServiceRoutine::programmableInterruptControllerMasterDataPort.write(hardwareInterruptOffset);
+    InterruptServiceRoutine::programmableInterruptControllerSlaveDataPort.write(0x70);
+
+    InterruptServiceRoutine::programmableInterruptControllerMasterDataPort.write(0x04);
+    InterruptServiceRoutine::programmableInterruptControllerSlaveDataPort.write(0x02);
+
+    InterruptServiceRoutine::programmableInterruptControllerMasterDataPort.write(0x01);
+    InterruptServiceRoutine::programmableInterruptControllerSlaveDataPort.write(0x01);
+
+    InterruptServiceRoutine::programmableInterruptControllerMasterDataPort.write(0x00);
+    InterruptServiceRoutine::programmableInterruptControllerSlaveDataPort.write(0x00);
 
     InterruptDescriptorTablePointer idt_pointer;
+    static_assert(sizeof(GateDescriptor)==8,"Gate Descriptor error");
     idt_pointer.size  = 256*sizeof(GateDescriptor) - 1;
     idt_pointer.base  = (uint_32)interruptDescriptorTable;
-    asm volatile("lidt %0" : : "m" (idt_pointer));
+    asm volatile("lidtl %0" : : "m" (idt_pointer));
   }
-
 
   static uint_16 getHardwareInterruptOffset(){
-      return InterruptServiceRoutine::hardwareInterruptOffset;
+    return InterruptServiceRoutine::hardwareInterruptOffset;
   }
 
-};
-
-
+}__attribute__((packed));
 
 #endif

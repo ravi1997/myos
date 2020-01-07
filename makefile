@@ -1,21 +1,26 @@
-GPPPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -fno-pie -ggdb -Wall -Wextra -Iinclude -O3 -std=c++17
+GPPPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -nodefaultlibs -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -fno-pie -Wall -Wextra -Iinclude -w -trigraphs -fconcepts -fno-stack-protector -O0 -c -std=c++2a
 ASPARAMS =  --32
-LDPARAMS = -melf_i386
+LDPARAMS = -melf_i386 -static
+
+AS=as
+CC=g++
+LD=ld
 
 OBJECTS = Object/kernel/loader.o \
 					Object/kernel/system/gdt.o \
 					Object/kernel/system/iqr.o \
 					Object/kernel/system/interruptstubs.o \
-					Object/kernel/kernel.o
+					Object/kernel/kernel.o	\
+					Object/kernel/system/outputstream.o
 
 Object/%.o:source/%.cpp
-	g++ $(GPPPARAMS) -o $@ -c $<
+	$(CC) $(GPPPARAMS) -o $@ -c $<
 
 Object/%.o : source/%.s
-	as $(ASPARAMS) -o $@ $<
+	$(AS) $(ASPARAMS) -o $@ $<
 
 Object/kernel/mykernel.bin: linker.ld $(OBJECTS)
-	ld $(LDPARAMS) -T $< -o $@ $(OBJECTS)
+	$(LD) $(LDPARAMS) -T $< -o $@ $(OBJECTS)
 
 mykernel.iso: Object/kernel/mykernel.bin
 	(mkdir iso)
@@ -34,13 +39,16 @@ mykernel.iso: Object/kernel/mykernel.bin
 
 run:clean mykernel.iso
 ifeq ($(echo $(VBoxManage.exe list runningvms | grep "My Operating System")),)
-	VBoxManage.exe startvm "My Operating System"
+	 VirtualBoxVM.exe --startvm "My Operating System"
 else
-	VBoxManage.exe controlvm "My Operating System" poweroff soft
-	VBoxManage.exe startvm "My Operating System"
+	VBoxManage.exe controlvm --debug "My Operating System" poweroff soft
+	 VirtualBoxVM.exe --startvm "My Operating System"
 endif
 
 rebuild:clean mykernel.iso
+
+objdump:clean Object/kernel/mykernel.bin
+	objdump -D Object/kernel/mykernel.bin -Mintel,i386 -m i386 > obj.dump
 
 
 .PHONY:clean

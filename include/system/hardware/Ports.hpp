@@ -5,6 +5,10 @@
 #include<lang//types.hpp>
 #endif
 
+template<typename t,bool slow>
+class Port;
+
+
 template<typename t,bool slow=false>
 class Port{
 private:
@@ -40,6 +44,22 @@ public:
   }
 
 };
+
+template<>
+class Port<uint_8,true>:public Port<uint_8>{
+private:
+  uint_16 portNumber;
+public:
+  Port(uint_16 Number):Port<uint_8>(Number),portNumber{Number}{}
+  ~Port(){}
+
+  void write(uint_8 value){
+    asm volatile ("outb %0, %1\njmp 1f\n1: jmp 1f\n1:"::"a"(value),"Nd"(portNumber));
+  }
+
+
+};
+
 
 typedef Port<uint_8> Port_8Bit;
 typedef Port<uint_8,true> Port8BitSlow;
