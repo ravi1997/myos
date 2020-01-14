@@ -1,13 +1,12 @@
-GPPPARAMS = -m32 -fno-use-cxa-atexit -nostdlib -nodefaultlibs -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -fno-pie -Wall -Wextra -Iinclude -w -trigraphs -fconcepts -fno-stack-protector -O0 -c -std=c++2a
-ASPARAMS =  --32
-LDPARAMS = -melf_i386 -static
+GPPPARAMS = -m32 -g -fno-use-cxa-atexit -nostdlib -nodefaultlibs -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -fno-pie -Wall -Wextra -Iinclude -w -trigraphs -fconcepts -fno-stack-protector -O0 -c -std=c++2a -fno-common -ffreestanding -nostdinc -fno-strict-aliasing -fno-stack-protector -fno-omit-frame-pointer
+ASPARAMS =  --32 -g
+LDPARAMS = -melf_i386 -static -g
 
 AS=as
 CC=g++
 LD=ld
 
 OBJECTS = Object/kernel/loader.o \
-					Object/kernel/system/gdt.o \
 					Object/kernel/system/iqr.o \
 					Object/kernel/system/interruptstubs.o \
 					Object/kernel/kernel.o	\
@@ -48,10 +47,10 @@ endif
 rebuild:clean mykernel.iso
 
 objdump:clean Object/kernel/mykernel.bin
-	objdump -D Object/kernel/mykernel.bin -Mintel,i386 -m i386 > obj.dump
+	objdump  -e -D -x -S -s -g -t Object/kernel/mykernel.bin -Mintel,i386 -m i386 > obj.dump
 
 
 .PHONY:clean
 clean:
 	(rm -rf iso) || true
-	(rm $(OBJECTS) *.iso) || true
+	(rm $(OBJECTS) *.iso Object/kernel/mykernel.bin) || true

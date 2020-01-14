@@ -3,6 +3,7 @@
 #endif
 
 #include<system//outputstream.hpp>
+extern "C" void myInterrupt();
 
 
 typedef void (*constructor)();
@@ -15,12 +16,20 @@ extern "C" void callConstructors(){
 }
 
 extern "C" void kernelMain([[maybe_unused]]void *multiboot_structure,[[maybe_unused]]uint_32 magicnumber){
+
+  Service s;
+
   cout<<"Hardware initialize"<<endl;
-  Service::initialize();
+  s.initialize();
   cout<<"service started"<<endl;
-  Service::run();
+  s.run();
+
+//  myInterrupt();
+
   cout<<"Service: Activated"<<endl;
 
+  //GlobalDescriptorTableManager::gdtDebug();
+
   while(1)
-    Service::loop();
+    s.loop();
 }

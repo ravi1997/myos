@@ -5,7 +5,10 @@
 .section .text
 .extern _ZN23InterruptServiceRoutine15HandleInterruptEhj
 .global _ZN23InterruptServiceRoutine15InterruptIgnoreEv
+.global myInterrupt
 
+myInterrupt:
+  int $49
 
 .macro handleException num
 .global _ZN23InterruptServiceRoutine19HandleException\num\()Ev
@@ -19,7 +22,7 @@ _ZN23InterruptServiceRoutine19HandleException\num\()Ev:
 .global _ZN23InterruptServiceRoutine26HandleInterruptRequest\num\()Ev
 _ZN23InterruptServiceRoutine26HandleInterruptRequest\num\()Ev:
     movb $\num + IRQ_BASE, (interruptnumber)
-   // pushl $0
+    pushl $0
     jmp int_bottom
 .endm
 
@@ -75,6 +78,14 @@ int_bottom:
     #pushl %fs
     #pushl %gs
 
+    pushl %ebp
+    pushl %edi
+    pushl %esi
+
+    pushl %edx
+    pushl %ecx
+    pushl %ebx
+    pushl %eax
 
     # load ring 0 segment register
     #cld
@@ -88,6 +99,15 @@ int_bottom:
     call _ZN23InterruptServiceRoutine15HandleInterruptEhj
     #add %esp, 6
     mov %eax, %esp # switch the stack
+
+    popl %eax
+    popl %ebx
+    popl %ecx
+    popl %edx
+
+    popl %esi
+    popl %edi
+    popl %ebp
 
     # restore registers
     #pop %gs
