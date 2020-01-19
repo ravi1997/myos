@@ -49,6 +49,9 @@ rebuild:clean mykernel.iso
 objdump:clean Object/kernel/mykernel.bin
 	objdump  -e -D -x -S -s -g -t Object/kernel/mykernel.bin -Mintel,i386 -m i386 > obj.dump
 
+install:
+    sudo apt-update -y || sudo apt upgrade || sudo apt-get intall as gcc g++ make grub-lagacy ld -y --fix-missing
+
 
 .PHONY:clean
 clean:
