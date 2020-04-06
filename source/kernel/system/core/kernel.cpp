@@ -1,6 +1,6 @@
 
-#include <kernel//system//core//hardware//interrupts.h>
-#include <kernel//system//core//Service.h>
+#include <kernel//system//core//hardware//interrupts.hpp>
+#include <kernel//system//core//Service.hpp>
 
 typedef void (*constructor)();
 extern "C" constructor start_ctors;
