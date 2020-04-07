@@ -4,6 +4,7 @@
 #include <kernel//system//core//hardware//interrupts.hpp>
 #include <kernel//system//core//hardware//driver//Driver.hpp>
 #include <kernel//system//core//hardware//driver//keyboard.hpp>
+#include <kernel//system//core//hardware//driver//mouse.hpp>
 
 class Service{
   GlobalDescriptorTable gdtManager;
@@ -13,12 +14,16 @@ class Service{
   PrintfKeyboardEventHandler  keyHandler;
   KeyboardDriver kDriver;
 
+  MouseToConsole mouseHandler;
+  MouseDriver mDriver;
+
 
 public:
   Service():
     isrManager{gdtManager},
     driverManager{isrManager},
-    kDriver{&isrManager,&keyHandler}
+    kDriver{&isrManager,&keyHandler},
+    mDriver{&isrManager,&mouseHandler}
     {}
 
   void Initialize(){
@@ -26,6 +31,7 @@ public:
     gdtManager.Activate();
     isrManager.Initialize();
 
+    driverManager.addDriver(&mDriver);
     driverManager.addDriver(&kDriver);
 
   }

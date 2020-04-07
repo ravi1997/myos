@@ -135,14 +135,9 @@
             programmableInterruptControllerSlaveCommandPort(0xA0),
             programmableInterruptControllerSlaveDataPort(0xA1),
             CodeSegment {im.CodeSegment}
-            {}
-
-            ~InterruptManager(){
-                Deactivate();
-            }
-            virtual void Initialize()final{
-
+            {
               const uint8_t IDT_INTERRUPT_GATE = 0xE;
+
               for(uint8_t i = 255; i > 0; --i)
               {
                 SetInterruptDescriptorTableEntry(i, CodeSegment, &InterruptIgnore, 0, IDT_INTERRUPT_GATE);
@@ -150,6 +145,15 @@
               }
               SetInterruptDescriptorTableEntry(0, CodeSegment, &InterruptIgnore, 0, IDT_INTERRUPT_GATE);
               handlers[0] = nullptr;
+
+            }
+
+            ~InterruptManager(){
+                Deactivate();
+            }
+            virtual void Initialize()final{
+
+              const uint8_t IDT_INTERRUPT_GATE = 0xE;
 
               SetInterruptDescriptorTableEntry(0x00, CodeSegment, &HandleException0x00, 0, IDT_INTERRUPT_GATE);
               SetInterruptDescriptorTableEntry(0x01, CodeSegment, &HandleException0x01, 0, IDT_INTERRUPT_GATE);

@@ -25,7 +25,7 @@ public:
     }
 
     ~KeyboardDriver(){}
-    virtual uint32_t HandleInterrupt(uint32_t esp){
+    virtual uint32_t HandleInterrupt(uint32_t esp)final{
         uint8_t key = dataport.read();
 
         if(handler == 0)
@@ -51,7 +51,7 @@ public:
                 case 0x12: handler->OnKeyDown('e'); break;
                 case 0x13: handler->OnKeyDown('r'); break;
                 case 0x14: handler->OnKeyDown('t'); break;
-                case 0x15: handler->OnKeyDown('z'); break;
+                case 0x15: handler->OnKeyDown('y'); break;
                 case 0x16: handler->OnKeyDown('u'); break;
                 case 0x17: handler->OnKeyDown('i'); break;
                 case 0x18: handler->OnKeyDown('o'); break;
@@ -67,7 +67,7 @@ public:
                 case 0x25: handler->OnKeyDown('k'); break;
                 case 0x26: handler->OnKeyDown('l'); break;
 
-                case 0x2C: handler->OnKeyDown('y'); break;
+                case 0x2C: handler->OnKeyDown('z'); break;
                 case 0x2D: handler->OnKeyDown('x'); break;
                 case 0x2E: handler->OnKeyDown('c'); break;
                 case 0x2F: handler->OnKeyDown('v'); break;
@@ -108,9 +108,15 @@ class PrintfKeyboardEventHandler : public KeyboardEventHandler
 public:
     void OnKeyDown(char c)
     {
-        cout<<c;
+      char ch[2];
+      ch[0]=c;
+      ch[1]='\0';
+        cout<<ch;
     }
     void OnKeyUp(char c){
-      cout<<c;
+        char ch[2];
+        ch[0]=c;
+        ch[1]='\0';
+        cout<<ch;
     }
 };
