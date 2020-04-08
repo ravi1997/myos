@@ -9,5 +9,6 @@
     typedef unsigned int           uint32_t;
     typedef long long int           int64_t;
     typedef unsigned long long int uint64_t;
-    
+    typedef unsigned int        size_t;
+    typedef uint32_t            uintptr_t;
 #endif
